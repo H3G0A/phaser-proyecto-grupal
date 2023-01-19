@@ -3,7 +3,7 @@ import Enemy from './Enemy'
 
 export default class Mummy extends Enemy {
 
-	constructor(scene, x, y, spriteName) {
+	constructor(scene, x, y, distance, spriteName) {
 		super(scene, x, y, spriteName);
 
 		this.scene.anims.create(
@@ -18,7 +18,7 @@ export default class Mummy extends Enemy {
 
 		this.finishedRoute = false;
 		this.initialPos = this.x;
-
+		this.distance = distance;
 	}
 
 	patrolling (distance) {
@@ -41,7 +41,7 @@ export default class Mummy extends Enemy {
 	}
 
 	update() {
-		this.patrolling(100);
+		this.patrolling(this.distance);
 	}
 
 }

@@ -18,8 +18,8 @@ export default class HelloWorldScene extends Phaser.Scene {
 		this.add.image(400, 300, 'sea').setScale(8);
 
 		// Add player and enemies
-		this.mummy = new Mummy(this, 400, 300, 'mummy');
-		this.player = new SamplePlayer(this, 200, 300, 'player');
+		this.mummy = new Mummy(this, 400, 300, 300, 'mummy');
+		this.player = new SamplePlayer(this, 200, 100, 'player');
 
 		// Set collisions
 		this.physics.add.overlap(this.player, this.mummy, () => { this.player.takeDamage(this.mummy.damage) }, null, this);
