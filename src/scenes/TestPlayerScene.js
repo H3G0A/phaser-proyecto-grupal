@@ -1,10 +1,10 @@
 import Phaser from 'phaser'
 import Player from '../characters/Player'
-export default class HelloWorldScene extends Phaser.Scene
+export default class TestPlayerScene extends Phaser.Scene
 {
 	constructor()
 	{
-		super('hello-world')
+		super('test-player')
 	}
 
 	preload()
@@ -25,6 +25,8 @@ export default class HelloWorldScene extends Phaser.Scene
 		this.player = new Player(this, 200, 100, 'player');
 
         this.cursors = this.input.keyboard.createCursorKeys();
+
+
 
         this.cameras.main.startFollow(this.player, true);
     }
