@@ -15,4 +15,5 @@ export default class Character extends Phaser.Physics.Arcade.Sprite {
 		this.damage = 30;
 	}
 
+
 }

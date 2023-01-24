@@ -1,6 +1,6 @@
 import Phaser from 'phaser'
 
-import HelloWorldScene from './scenes/HelloWorldScene'
+import HelloWorldScene from './scenes/TestPlayerScene'
 
 const config = {
 	type: Phaser.AUTO,
