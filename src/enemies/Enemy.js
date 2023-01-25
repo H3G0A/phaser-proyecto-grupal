@@ -9,8 +9,26 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
 		this.scene.physics.add.existing(this);
 		this.setCollideWorldBounds(true);
 
-		this.health = 100;
-		this.damage = 30;
+		this.health = 3;
+		this.damage = 1;
+		this.takingDamage = false;
+	}
+
+	takeDamage(damage) {
+		if (!this.takingDamage) {
+			this.health -= damage;
+			this.checkDeath();
+			console.log(this.health);
+			this.takingDamage = true;
+			setTimeout(() => { this.takingDamage = false }, 1000);
+		}
+	}
+
+	checkDeath(){
+		if (this.health <= 0) {
+			console.log('enemy death');
+			this.disableBody(true, true);
+		}
 	}
 
 }
