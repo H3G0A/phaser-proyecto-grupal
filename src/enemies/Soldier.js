@@ -1,10 +1,9 @@
-import Phaser from 'phaser'
 import Bullets from './Bullets';
 import Enemy from './Enemy'
 
 export default class Soldier extends Enemy {
 
-	constructor(scene, x, y, spriteName, player) {
+	constructor(scene, x, y, spriteName) {
 		super(scene, x, y, spriteName);
 
 		this.scene.anims.create(
@@ -32,15 +31,14 @@ export default class Soldier extends Enemy {
 		this.bulletOffsetX = 30;
 		this.bulletOffsetY = -2;
 		this.shooting = false;
-		this.bulletGroup = new Bullets(this.scene, 'bullet');
-		this.player = player;
+		this.bulletGroup = new Bullets(this.scene, 'bullet')
 	}
 
 	shoot(){
 		if(!this.shooting){
 			this.play('shoot');
 			setTimeout(() => {
-				this.bulletGroup.generateBullet(this.posX + this.bulletOffsetX, this.posY + this.bulletOffsetY, this.player);
+				this.bulletGroup.generateBullet(this.posX + this.bulletOffsetX, this.posY + this.bulletOffsetY);
 			}, 600);
 			
 			this.shooting = true;

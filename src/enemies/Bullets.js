@@ -7,7 +7,7 @@ export default class Bullets extends Phaser.Physics.Arcade.Group {
 		this.spriteName = spriteName;
 		this.scene = scene;
 		this.scene.add.existing(this);
-		this.maxSize = 50;
+		this.maxSize = 15;
 	}
 
 	autoDestroy(bullet) {
@@ -15,8 +15,8 @@ export default class Bullets extends Phaser.Physics.Arcade.Group {
 			bullet.destroy();
 		}, 5000);
 	}
-
-	generateBullet(x, y, player) {
+	
+	generateBullet(x, y) {
 		let item = this.create(x, y, this.spriteName, 0, true, true);
 		item.body.setAllowGravity(false);
 		item.setVelocityX(200);
@@ -29,12 +29,9 @@ export default class Bullets extends Phaser.Physics.Arcade.Group {
 				item.destroy();
 			}
 		}, item);
-		
-		//this.scene.physics.add.overlap(player, item, () => { player.takeDamage(1) }, null, this);
 
 		// Destroy if reaches 5 seconds lifetime
 		this.autoDestroy(item);
 	}
-
 
 }
