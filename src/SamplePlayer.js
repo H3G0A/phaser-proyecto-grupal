@@ -26,7 +26,7 @@ export default class Mummy extends Phaser.Physics.Arcade.Sprite {
 
 	checkDeath(){
 		if (this.health <= 0) {
-			console.log('enemy death');
+			console.log('Player death');
 			this.disableBody(true, true);
 		}
 	}

@@ -1,5 +1,5 @@
 import Phaser from "phaser"
-import Bullet from "../enemies/Bullet"
+import Bullets from "../enemies/Bullets"
 import Mummy from '../enemies/Mummy'
 import Soldier from '../enemies/Soldier'
 import SamplePlayer from '../SamplePlayer'
@@ -23,15 +23,16 @@ export default class HelloWorldScene extends Phaser.Scene {
 
 		// Add player and enemies
 		//this.mummy = new Mummy(this, 400, 300, 300, 'mummy');
-		this.soldier = new Soldier(this, 400, 300, 300, 'soldier');
 		this.player = new SamplePlayer(this, 200, 100, 'player');
-
-		this.bullet = new Bullet(this, 400, 400, 'bullet');
+		this.soldier = new Soldier(this, 400, 550, 'soldier', this.player);
+		this.bullets = new Bullets(this, 'bullet');
 
 		// Set collisions
 		//this.physics.add.overlap(this.player, this.mummy, () => { this.player.takeDamage(this.mummy.damage) }, null, this);
 		this.physics.add.overlap(this.player, this.soldier, () => { this.player.takeDamage(this.soldier.damage) }, null, this);
-		
+
+		this.physics.add.overlap(this.player, this.bullets, () => { this.player.takeDamage(this.soldier.damage) }, null, this);
+
 		// To test health of the enemy
 		//this.physics.add.overlap(this.player, this.mummy, () => { this.mummy.takeDamage(this.player.damage) }, null, this);
 
@@ -41,6 +42,5 @@ export default class HelloWorldScene extends Phaser.Scene {
 		//this.mummy.update();
 		this.soldier.update();
 		this.player.update();
-		this.bullet.update();
 	}
 }
