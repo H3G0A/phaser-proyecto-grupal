@@ -1,5 +1,4 @@
 import Phaser from 'phaser'
-import Mummy from '../Mummy'
 export default class HelloWorldScene extends Phaser.Scene
 {
 	constructor()
@@ -14,8 +13,6 @@ export default class HelloWorldScene extends Phaser.Scene
         this.load.image('sky', 'assets/skies/space3.png')
         this.load.image('logo', 'assets/sprites/phaser3-logo.png')
         this.load.image('red', 'assets/particles/red.png')
-        this.load.spritesheet('mummy','assets/animations/mummy37x45.png',
-        {frameWidth:37, frameHeight:45});
     }
 
     create()
@@ -30,8 +27,6 @@ export default class HelloWorldScene extends Phaser.Scene
             blendMode: 'ADD'
         })
 
-        this.mummy01 = new Mummy(this,300,100,'mummy');
-
         const logo = this.physics.add.image(400, 100, 'logo')
 
         logo.setVelocity(100, 200)
@@ -43,6 +38,6 @@ export default class HelloWorldScene extends Phaser.Scene
 
     update()
     {
-        this.mummy01.update();
+        
     }
 }
