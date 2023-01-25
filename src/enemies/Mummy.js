@@ -1,4 +1,3 @@
-import Phaser from 'phaser'
 import Enemy from './Enemy'
 
 export default class Mummy extends Enemy {
@@ -9,7 +8,7 @@ export default class Mummy extends Enemy {
 		this.scene.anims.create(
 			{
 				key: 'walk',
-				frames: this.scene.anims.generateFrameNumbers(spriteName, { start: 0, end: 18 }),
+				frames: this.scene.anims.generateFrameNumbers(spriteName, { start: 0, end: 17 }),
 				frameRate: 10,
 				repeat: -1
 			}
