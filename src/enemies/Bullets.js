@@ -13,7 +13,7 @@ export default class Bullets extends Phaser.Physics.Arcade.Group {
 	autoDestroy(bullet) {
 		setTimeout(() => { 
 			bullet.destroy();
-		}, 3000);
+		}, 2000);
 	}
 	
 	generateBullet(x, y) {

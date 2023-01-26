@@ -31,6 +31,11 @@ export default class Mummy extends Phaser.Physics.Arcade.Sprite {
 		}
 	}
 
+	bounce(velocity) {
+		this.setVelocityY(velocity)
+		console.log('im jumping!')
+	}
+
 	update() {
 		if (this.cursors.up.isDown && this.y >= 550) {
 			this.setVelocityY(-330);
