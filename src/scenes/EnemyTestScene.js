@@ -21,12 +21,12 @@ export default class HelloWorldScene extends Phaser.Scene {
 		this.add.image(400, 300, 'sea').setScale(8);
 
 		// Add player and enemies
-		//this.mummy = new Mummy(this, 400, 300, 300, 'mummy');
+		this.mummy = new Mummy(this, 120, 550, 300, 'mummy');
 		this.player = new SamplePlayer(this, 600, 550, 'player');
 		this.soldier = new Soldier(this, 100, 550, 'soldier');
 
 		// Set collisions
-		//this.physics.add.overlap(this.player, this.mummy, () => { this.player.takeDamage(this.mummy.damage) }, null, this);
+		this.physics.add.overlap(this.player, this.mummy, () => { this.player.takeDamage(this.mummy.damage) }, null, this);
 		this.physics.add.overlap(this.player, this.soldier, () => { this.player.takeDamage(this.soldier.damage) }, null, this);
 		this.physics.add.overlap(this.player, this.soldier.bulletGroup, () => { this.player.takeDamage(this.soldier.damage) }, null, this);
 
@@ -36,7 +36,7 @@ export default class HelloWorldScene extends Phaser.Scene {
 	}
 
 	update() {
-		//this.mummy.update();
+		this.mummy.update();
 		this.soldier.update();
 		this.player.update();
 	}
