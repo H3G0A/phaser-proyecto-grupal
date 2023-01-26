@@ -21,21 +21,21 @@ export default class Mummy extends Enemy {
 	}
 
 	patrolling (distance) {
-		let endPos = this.initialPos + distance;
-		if(this.x >= endPos){
+		let endPos = this.initialPos - distance;
+		if(this.x <= endPos){
 			this.finishedRoute = true;
 		}
-		if(this.x <= this.initialPos){
+		if(this.x >= this.initialPos){
 			this.finishedRoute = false;
 		}
 		
 		if(!this.finishedRoute){
-			this.setVelocityX(20);
-			this.flipX = false;
-		}
-		else{
 			this.setVelocityX(-20);
 			this.flipX = true;
+		}
+		else{
+			this.setVelocityX(20);
+			this.flipX = false;
 		}
 	}
 
