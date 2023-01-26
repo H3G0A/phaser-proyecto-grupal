@@ -24,11 +24,12 @@ export default class Soldier extends Enemy {
 				repeat: 0
 			}
 		)
+		this.flipX = true;
 		this.play('idle');
 
 		this.posX = x;
 		this.posY = y;
-		this.bulletOffsetX = 30;
+		this.bulletOffsetX = -30;
 		this.bulletOffsetY = -2;
 		this.shooting = false;
 		this.bulletGroup = new Bullets(this.scene, 'bullet')
