@@ -9,7 +9,7 @@ export default class BossDemon extends Enemy {
 		this.scene.anims.create(
 			{
 				key: 'walk',
-				frames: this.scene.anims.generateFrameNumbers(spriteName, { start: 0, end: 18 }),
+				frames: this.scene.anims.generateFrameNumbers(spriteName, { start: 0, end: 6 }),
 				frameRate: 10,
 				repeat: -1
 			}
@@ -35,8 +35,8 @@ export default class BossDemon extends Enemy {
 			this.flipX = false;
 		}
 		else{
-			this.setVelocityX(-20);
-			this.flipX = true;
+			this.setVelocityX(0);
+			this.flipX = false;
 		}
 	}
 
