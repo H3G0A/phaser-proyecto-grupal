@@ -12,7 +12,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 		this.scene.physics.add.existing(this);
 		this.setCollideWorldBounds(true);
 		this.cursors = this.scene.input.keyboard.createCursorKeys();
-
+		this.spaceKey = this.scene.input.keyboard.addKey('SPACE');
 
 		this.scene.anims.create(
 			{
@@ -24,11 +24,29 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
 		this.scene.anims.create(
 			{
+				key: 'player-jump',
+				frames: this.scene.anims.generateFrameNumbers('player-jump', { start: 0, end: 3 }),
+				frameRate: 10
+			}
+		);
+
+		this.scene.anims.create(
+			{
 				key: 'shoot',
 				frames: this.scene.anims.generateFrameNumbers('player-shoot', { start: 0, end: 1 }),
 				frameRate: 10
 			}
 		);
+
+		this.scene.anims.create(
+			{
+				key: 'stay',
+				frames: this.scene.anims.generateFrameNumbers('player', { start: 0, end: 3 }),
+				frameRate: 10,
+				repeat : -1
+			}
+		);
+
 
 
 		this.health = 100;
@@ -41,6 +59,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 		this.superShotOffsetY = -10;
 		this.isOnPlatform = false;
 		this.currentPlatform = undefined;
+
+		if(this.health >0 ){
+			this.play('stay');
+		}
+
 	}
 
 	takeDamage(damage) {
@@ -106,8 +129,10 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 	}
 
 	update() {
+
 		if (this.cursors.up.isDown == true) {
 			this.setVelocityY(-500);
+			this.play('player-jump').on('animationcomplete', () => {this.play('stay')});
 		}
 		else if (this.cursors.down.isDown) {
 			this.setVelocityY(200);
@@ -117,7 +142,12 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 		}
 		else if (this.cursors.right.isDown) {
 			this.setVelocityX(200);
-			this.play('player-walk');
+			if (!(this.anims.isPlaying && this.anims.currentAnim.key === 'player-jump')) {
+				this.play('player-walk').on('animationcomplete', () => {this.play('stay')});
+			}
+		}else if (this.spaceKey.isDown){
+			this.executeSuperShot();
+			this.play('shoot').on('animationcomplete', () => {this.play('stay')});
 		}
 		else {
 			this.setVelocityX(0);
