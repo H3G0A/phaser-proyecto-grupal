@@ -88,6 +88,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 		}
 	}
 
+	bounce(velocity) {
+		this.play('player-jump').on('animationcomplete', () => {this.play('stay')});
+		this.setVelocityY(velocity)
+	}
+
 	checkDeath(){
 		if (this.health <= 0) {
 			console.log('Player death');
