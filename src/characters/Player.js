@@ -15,21 +15,30 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
 		this.health = 100;
 		this.damage = 30;
+		this.takingDamage = false;
 
-		this.init();
 	}
 
-	init(){
-        this
-        .setBounce(0.2)
-        .setCollideWorldBounds(true)
-        .setGravityY(300)
-        .setDepth(2);
-    }
+	takeDamage(damage) {
+		if (!this.takingDamage) {
+			this.health -= damage;
+			this.checkDeath();
+			console.log(this.health);
+			this.takingDamage = true;
+			setTimeout(() => { this.takingDamage = false }, 1000);
+		}
+	}
+
+	checkDeath(){
+		if (this.health <= 0) {
+			console.log('Player death');
+			this.disableBody(true, true);
+		}
+	}
 
 	update() {
-		if (this.cursors.up.isDown && this.y >= 550) {
-			this.setVelocityY(-330);
+		if (this.cursors.up.isDown == true) {
+			this.setVelocityY(-500);
 		}
 		else if (this.cursors.down.isDown) {
 			this.setVelocityY(200);

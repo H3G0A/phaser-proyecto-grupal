@@ -1,16 +1,16 @@
 import Phaser from "phaser"
 import BossDemon from "../enemies/BossDemon";
 import Mummy from '../enemies/Mummy'
-import SamplePlayer from '../SamplePlayer'
+import Player from '../characters/Player'
 
 export default class FinalBossScene extends Phaser.Scene {
 
 	preload() {
 		this.load.image('tile', 'res/TileseBossStage.png');
 		this.load.tilemapTiledJSON('map','res/bossfinal2.json');
-		this.load.spritesheet('player', 'res/player/idle/idle-1.png', { frameWidth: 71, frameHeight: 67 });		
-		this.load.spritesheet('demon', '../../res/enemies/hell-beast-id.png', { frameWidth: 55, frameHeight: 67 });	
-		//this.load.spritesheet('mummy', '../../res/enemies/mummy37x45.png', { frameWidth: 37, frameHeight: 45 });	
+		this.load.spritesheet('player', 'res/player/idle/idle-1.png', { frameWidth: 71, frameHeight: 67 });
+		this.load.spritesheet('demon', '../../res/enemies/hell-beast-id.png', { frameWidth: 55, frameHeight: 67 });
+		//this.load.spritesheet('mummy', '../../res/enemies/mummy37x45.png', { frameWidth: 37, frameHeight: 45 });
 	}
 	create() {
 		//Add tile map to the key
@@ -24,16 +24,17 @@ export default class FinalBossScene extends Phaser.Scene {
 		var layerMountain = map.createLayer('mountain', tiles, 0, 0);
 		var layerProp = map.createLayer('prop', tiles, 0, 0);
 		var layerSuelo = map.createLayer('suelo', tiles, 0, 0);
-		
+
 		//Add collider to the layer
 		layerSuelo.setCollisionByExclusion([-1] , true);
 
 		// Add player and enemies
 
-		this.player = new SamplePlayer(this, 100, 0, 'player');
+		this.player = new Player(this, 200, 100, 'player');
+
 		this.demon = new BossDemon(this, 850, 300, 0, 'demon');
 		//this.mummy = new Mummy(this, 400, 300, 0, 'mummy');
-		
+
 		// Set collisions damage
 		this.physics.add.overlap(this.player, this.demon, () => { this.player.takeDamage(this.demon.damage) }, null, this);
 		//this.physics.add.overlap(this.player, this.mummy, () => { this.player.takeDamage(this.mummy.damage) }, null, this);
@@ -51,6 +52,7 @@ export default class FinalBossScene extends Phaser.Scene {
 		this.demon.scale = 3.5;
 	}
 	update() {
+		const cam = this.cameras.main;
 		this.player.update();
 		this.demon.update();
 		//this.mummy.update();

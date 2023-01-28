@@ -24,8 +24,6 @@ export default class TestPlayerScene extends Phaser.Scene
         // Add player
 		this.player = new Player(this, 200, 100, 'player');
 
-        this.cursors = this.input.keyboard.createCursorKeys();
-
 
 
         this.cameras.main.startFollow(this.player, true);
