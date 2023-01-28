@@ -16,7 +16,7 @@ export default class SuperShot extends Phaser.Physics.Arcade.Sprite  {
 	autoDestroy() {
 		setTimeout(() => { 
 			this.destroy();
-		}, 5000);
+		}, 2000);
 	}
 	
 	// Execute a 'Super Shot'
