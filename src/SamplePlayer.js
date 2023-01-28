@@ -1,31 +1,39 @@
-
 import Phaser from 'phaser'
 
-export default class Player extends Phaser.Physics.Arcade.Sprite {
-
+export default class Mummy extends Phaser.Physics.Arcade.Sprite {
 	constructor(scene, x, y, spriteName) {
 		super(scene, x, y, spriteName);
 		this.scene = scene;
 		this.scene.add.existing(this);
-		this.scene.physics.world.enable(this);
 		this.scene.physics.add.existing(this);
 		this.setCollideWorldBounds(true);
-
 		this.cursors = this.scene.input.keyboard.createCursorKeys();
 
-		this.health = 100;
-		this.damage = 30;
-
-		this.init();
+		this.damage = 1;
+		this.takingDamage = false;
+		this.health = 3;
 	}
 
-	init(){
-        this
-        .setBounce(0.2)
-        .setCollideWorldBounds(true)
-        .setGravityY(300)
-        .setDepth(2);
-    }
+	takeDamage(damage) {
+		if (!this.takingDamage) {
+			this.health -= damage;
+			this.checkDeath();
+			console.log(this.health);
+			this.takingDamage = true;
+			setTimeout(() => { this.takingDamage = false }, 1000);
+		}
+	}
+
+	checkDeath(){
+		if (this.health <= 0) {
+			console.log('Player death');
+			this.disableBody(true, true);
+		}
+	}
+
+	bounce(velocity) {
+		this.setVelocityY(velocity)
+	}
 
 	update() {
 		if (this.cursors.up.isDown && this.y >= 550) {
@@ -44,12 +52,5 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 			this.setVelocityX(0);
 		}
 
-
-		if (this.health <= 0) {
-			console.log('GAME OVER');
-			this.disableBody(true, true);
-		}
-
 	}
-
 }
