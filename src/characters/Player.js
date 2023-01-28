@@ -18,7 +18,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 			{
 				key: 'player-walk',
 				frames: this.scene.anims.generateFrameNumbers('player-walk', { start: 0, end: 15 }),
-				frameRate: 20
+				frameRate: 20,
+				repeat : 1
 			}
 		);
 
@@ -26,7 +27,17 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 			{
 				key: 'player-jump',
 				frames: this.scene.anims.generateFrameNumbers('player-jump', { start: 0, end: 3 }),
-				frameRate: 10
+				frameRate: 10,
+				repeat : 1
+			}
+		);
+
+		this.scene.anims.create(
+			{
+				key: 'player-hurt',
+				frames: this.scene.anims.generateFrameNumbers('player-hurt', { start: 0, end: 3 }),
+				frameRate: 10,
+				repeat : 1
 			}
 		);
 
@@ -34,7 +45,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 			{
 				key: 'shoot',
 				frames: this.scene.anims.generateFrameNumbers('player-shoot', { start: 0, end: 1 }),
-				frameRate: 10
+				frameRate: 10,
+				repeat : 2
 			}
 		);
 
@@ -80,6 +92,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 		if (this.health <= 0) {
 			console.log('Player death');
 			this.disableBody(true, true);
+		}else{
+			this.play('player-hurt').on('animationcomplete', () => {this.play('stay')});
 		}
 	}
 
@@ -125,7 +139,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 	heal(){
 		this.health += 1;
 		return this.health;
-
 	}
 
 	update() {

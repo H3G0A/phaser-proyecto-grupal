@@ -12,6 +12,7 @@ export default class FinalBossScene extends Phaser.Scene {
 		this.load.spritesheet('demon', '../../res/enemies/hell-beast-id.png', { frameWidth: 55, frameHeight: 67 });
 		this.load.spritesheet('player-walk', 'res/player/walk/player_walk.png', { frameWidth: 71, frameHeight: 67 });
 		this.load.spritesheet('player-shoot', 'res/player/shoot/shoot.png', { frameWidth: 71, frameHeight: 67 });
+		this.load.spritesheet('player-hurt', 'res/player/hurt/hurt.png', { frameWidth: 71, frameHeight: 67 });
 		this.load.spritesheet('player-jump', 'res/player/jump/jump_sprite.png', { frameWidth: 71, frameHeight: 67 });
 		//this.load.spritesheet('mummy', '../../res/enemies/mummy37x45.png', { frameWidth: 37, frameHeight: 45 });
 	}
