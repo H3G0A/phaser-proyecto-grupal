@@ -1,6 +1,7 @@
 
 import Phaser from 'phaser'
 import SuperShot from '../power_ups/SuperShot'
+import Bullets from '../enemies/Bullets';
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
 
@@ -72,6 +73,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 		this.isOnPlatform = false;
 		this.currentPlatform = undefined;
 
+		this.bulletGroup = new Bullets(this.scene, 'bullet')
+
 		if(this.health >0 ){
 			this.play('stay');
 		}
@@ -127,6 +130,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 		this.superShot = true;
 	}
 
+	shoot(){
+		this.play('shoot').on('animationcomplete', () => {this.play('stay')});
+		setTimeout(() => {
+			this.bulletGroup.generateBullet(this.body.position.x - 10, this.body.position.y + 10);
+		}, 600);
+	}
+
 	// Executes 'Super Shot'
 	executeSuperShot(){
 		if (this.superShot){
@@ -164,8 +174,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 				this.play('player-walk').on('animationcomplete', () => {this.play('stay')});
 			}
 		}else if (this.spaceKey.isDown){
+			this.shoot();
 			this.executeSuperShot();
-			this.play('shoot').on('animationcomplete', () => {this.play('stay')});
 		}
 		else {
 			this.setVelocityX(0);
