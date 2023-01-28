@@ -18,6 +18,7 @@ export default class Mummy extends Phaser.Physics.Arcade.Sprite {
 		this.health = 3;
 		this.inmunity = false;
 		this.superShot = false;
+		
 		this.superShotOffsetX = 100;
 		this.superShotOffsetY = -10;
 	}
@@ -28,10 +29,12 @@ export default class Mummy extends Phaser.Physics.Arcade.Sprite {
 			this.checkDeath();
 			console.log(this.health);
 			this.takingDamage = true;
+			this.scene.getHUD().setLifes(this.health);
 			setTimeout(() => { this.takingDamage = false }, 1000);
 		}
 	}
 
+	// Adds inmunity when picking up a star
 	addInmunity(){
 		this.inmunity = true;
 
@@ -45,15 +48,18 @@ export default class Mummy extends Phaser.Physics.Arcade.Sprite {
 		});
 	}
 
+	// Removes inmunity
 	removeInmunity(){
 		this.inmunity = false;
 		this.flashAnimation.stop();
 	}
 
+	// Adds 'Super Shot' when picking up a lightning
 	addSuperShot(){
 		this.superShot = true;
 	}
 
+	// Executes 'Super Shot'
 	executeSuperShot(){
 		if (this.superShot){
 			this.superShot = false;
@@ -61,10 +67,12 @@ export default class Mummy extends Phaser.Physics.Arcade.Sprite {
 			this.scene.superShotSound.play();
 			var superShotBullet = new SuperShot (this.scene, this.x + this.superShotOffsetX, this.y + this.superShotOffsetY, 'supershot', 1);
 			superShotBullet.setScale(0.5);
+			this.scene.superShotArray.push(superShotBullet);
 			superShotBullet.generateSuperShot();
 		}
 	}
 
+	// Heals when picking up a heart
 	heal(){
 		this.health += 1;
 		return this.health;
@@ -100,11 +108,11 @@ export default class Mummy extends Phaser.Physics.Arcade.Sprite {
 		}
 
 		if (this.health <= 0) {
-			this.scene.add.text(100, 200, 'GAME OVER', { fontSize: '100px', fill: '#0'});
+			//this.scene.add.text(100, 200, 'GAME OVER', { fontSize: '100px', fill: '#0'});
 			this.disableBody(true, true);
 		}
 
-		if (this.isOnPlatform && this.currentPlatform) {
+		if (this.isOnPlatform && this.currentPlatform) { // Executed when the player is on a moving platform
 			this.body.position.x += this.currentPlatform.body.x - this.currentPlatform.previousX;
 			this.body.position.y += this.currentPlatform.body.y - this.currentPlatform.previousY;
 		}

@@ -6,6 +6,7 @@ import Lightning from '../power_ups/Lightning'
 import HUD from '../HUD/HUD'
 import SamplePlayer from '../SamplePlayer'
 import MovingPlatform from "../MovingPlatform"
+import Mummy from "../enemies/Mummy"
 
 export default class HelloWorldScene extends Phaser.Scene {
 	constructor() {
@@ -21,6 +22,8 @@ export default class HelloWorldScene extends Phaser.Scene {
 		this.load.image('lightning', '../../res/power_ups/blue_power_icon.png');
 		this.load.image('supershot', '../../res/super_shot.png');
 		this.load.image('box', '../../res/box.png');
+		
+		this.load.spritesheet('mummy', '../../res/enemies/mummy37x45.png', { frameWidth: 37, frameHeight: 45 });
 		this.load.spritesheet('player', '../../res/player/idle/idle-1.png', { frameWidth: 71, frameHeight: 67 });
 
 		// Sounds
@@ -51,7 +54,9 @@ export default class HelloWorldScene extends Phaser.Scene {
 		this.lightningSound = this.sound.add('lightning');
 		this.starSound = this.sound.add('star');
 		this.superShotSound = this.sound.add('super_shot');
-		
+
+		// Add enemy
+		this.mummy = new Mummy(this, 550, 550, 100, 'mummy');
 
 		// Add HUD
 		this.hud = new HUD(this);
@@ -64,12 +69,12 @@ export default class HelloWorldScene extends Phaser.Scene {
 		this.movingPlatforms.push(new MovingPlatform(this, 100, 300, 'box', 300, 300));
 		this.movingPlatforms.push(new MovingPlatform(this, 400, 500, 'box', 400, 300));
 
+		this.superShotArray = [];
+
 		// Add keys
 		this.superShotKey = this.input.keyboard.addKey('X');
-		this.hurtKey = this.input.keyboard.addKey('K');
 		
 		// Set keys actions
-		this.hurtKey.on('down', () => { this.player.health--; this.hud.setLifes(this.player.health) }, null);
 		this.superShotKey.on('down', () => { this.player.executeSuperShot() }, null);
 
 		// Set collisions
@@ -78,11 +83,14 @@ export default class HelloWorldScene extends Phaser.Scene {
 		this.physics.add.overlap(this.player, this.coin, () => { this.coin.executePowerUpAction(this.hud) }, null, this);
 		this.physics.add.overlap(this.player, this.star, () => { this.star.executePowerUpAction(this.player) }, null, this);
 		this.physics.add.overlap(this.player, this.lightning, () => { this.lightning.executePowerUpAction(this.player, this.hud) }, null, this);
-		// añadir colisión supershot con array de enemigos
+		this.physics.add.overlap(this.mummy, this.superShotArray, () => { this.mummy.takeDamage(this.superShotArray[0].damage) }, null, this);
+
+		this.physics.add.overlap(this.player, this.mummy, () => { this.player.takeDamage(this.mummy.damage) }, null, this);
 	}
 
 	update() {
 		this.player.update();
+		this.mummy.update();
 		if (this.player.currentPlatform){
 			if (this.player.currentPlatform.body.touching.none){
 				this.player.isOnPlatform = false;
