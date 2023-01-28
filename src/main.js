@@ -6,12 +6,13 @@ import ThirdLevelScene from './scenes/ThirdLevelScene'
 
 const config = {
 	type: Phaser.AUTO,
-	width: 1000,
-	height: 600,
+	width: 960,
+	height: 640,
 	physics: {
 		default: 'arcade',
 		arcade: {
-			gravity: { y: 200 }
+			debug: true,
+			gravity: { y: 500 }
 		}
 	},
 	scene: [FirstLevelScene, SecondLevelScene, ThirdLevelScene]
