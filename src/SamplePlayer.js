@@ -1,5 +1,5 @@
 import Phaser from 'phaser'
-import SuperShot from './SuperShot'
+import SuperShot from './power_ups/SuperShot'
 
 export default class Mummy extends Phaser.Physics.Arcade.Sprite {
 	constructor(scene, x, y, spriteName) {

@@ -1,5 +1,6 @@
 
 import Phaser from 'phaser'
+import SuperShot from '../power_ups/SuperShot'
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
 
@@ -16,7 +17,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 		this.health = 100;
 		this.damage = 30;
 		this.takingDamage = false;
-
+		this.inmunity = false;
+		this.superShot = false;
+		
+		this.superShotOffsetX = 100;
+		this.superShotOffsetY = -10;
 	}
 
 	takeDamage(damage) {
@@ -34,6 +39,51 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 			console.log('Player death');
 			this.disableBody(true, true);
 		}
+	}
+
+	// Adds inmunity when picking up a star
+	addInmunity(){
+		this.inmunity = true;
+
+		this.flashAnimation = this.scene.tweens.add({
+			targets: this,
+			alpha: 0,
+			ease: 'Power0',  
+			duration: 500,
+			repeat: -1,
+			yoyo: true
+		});
+	}
+
+	// Removes inmunity
+	removeInmunity(){
+		this.inmunity = false;
+		this.flashAnimation.stop();
+	}
+
+	// Adds 'Super Shot' when picking up a lightning
+	addSuperShot(){
+		this.superShot = true;
+	}
+
+	// Executes 'Super Shot'
+	executeSuperShot(){
+		if (this.superShot){
+			this.superShot = false;
+			this.scene.getHUD().removeLightning();
+			this.scene.superShotSound.play();
+			var superShotBullet = new SuperShot (this.scene, this.x + this.superShotOffsetX, this.y + this.superShotOffsetY, 'supershot', 1);
+			superShotBullet.setScale(0.5);
+			this.scene.superShotArray.push(superShotBullet);
+			superShotBullet.generateSuperShot();
+		}
+	}
+
+	// Heals when picking up a heart
+	heal(){
+		this.health += 1;
+		return this.health;
+
 	}
 
 	update() {
