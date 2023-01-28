@@ -11,15 +11,32 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 		this.scene.physics.world.enable(this);
 		this.scene.physics.add.existing(this);
 		this.setCollideWorldBounds(true);
-
 		this.cursors = this.scene.input.keyboard.createCursorKeys();
+
+
+		this.scene.anims.create(
+			{
+				key: 'player-walk',
+				frames: this.scene.anims.generateFrameNumbers('player-walk', { start: 0, end: 15 }),
+				frameRate: 20
+			}
+		);
+
+		this.scene.anims.create(
+			{
+				key: 'shoot',
+				frames: this.scene.anims.generateFrameNumbers('player-shoot', { start: 0, end: 1 }),
+				frameRate: 10
+			}
+		);
+
 
 		this.health = 100;
 		this.damage = 30;
 		this.takingDamage = false;
 		this.inmunity = false;
 		this.superShot = false;
-		
+
 		this.superShotOffsetX = 100;
 		this.superShotOffsetY = -10;
 		this.isOnPlatform = false;
@@ -50,7 +67,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 		this.flashAnimation = this.scene.tweens.add({
 			targets: this,
 			alpha: 0,
-			ease: 'Power0',  
+			ease: 'Power0',
 			duration: 500,
 			repeat: -1,
 			yoyo: true
@@ -100,6 +117,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 		}
 		else if (this.cursors.right.isDown) {
 			this.setVelocityX(200);
+			this.play('player-walk');
 		}
 		else {
 			this.setVelocityX(0);
