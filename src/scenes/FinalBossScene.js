@@ -30,7 +30,7 @@ export default class FinalBossScene extends Phaser.Scene {
 
 		// Add player and enemies
 
-		this.player = new SamplePlayer(this, -0, 0, 'player');
+		this.player = new SamplePlayer(this, 100, 0, 'player');
 		this.demon = new BossDemon(this, 850, 300, 0, 'demon');
 		//this.mummy = new Mummy(this, 400, 300, 0, 'mummy');
 		
