@@ -1,6 +1,7 @@
+import Phaser from 'phaser'
 import Enemy from './Enemy'
 
-export default class Mummy extends Enemy {
+export default class BossDemon extends Enemy {
 
 	constructor(scene, x, y, distance, spriteName) {
 		super(scene, x, y, spriteName);
@@ -8,7 +9,7 @@ export default class Mummy extends Enemy {
 		this.scene.anims.create(
 			{
 				key: 'walk',
-				frames: this.scene.anims.generateFrameNumbers(spriteName, { start: 0, end: 17 }),
+				frames: this.scene.anims.generateFrameNumbers(spriteName, { start: 0, end: 6 }),
 				frameRate: 10,
 				repeat: -1
 			}
@@ -21,20 +22,20 @@ export default class Mummy extends Enemy {
 	}
 
 	patrolling (distance) {
-		let endPos = this.initialPos - distance;
-		if(this.x <= endPos){
+		let endPos = this.initialPos + distance;
+		if(this.x >= endPos){
 			this.finishedRoute = true;
 		}
-		if(this.x >= this.initialPos){
+		if(this.x <= this.initialPos){
 			this.finishedRoute = false;
 		}
 		
 		if(!this.finishedRoute){
-			this.setVelocityX(-20);
-			this.flipX = true;
+			this.setVelocityX(-0);
+			this.flipX = false;
 		}
 		else{
-			this.setVelocityX(20);
+			this.setVelocityX(0);
 			this.flipX = false;
 		}
 	}

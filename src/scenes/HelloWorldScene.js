@@ -1,5 +1,5 @@
 import Phaser from "phaser"
-import Mummy from '../Mummy'
+import Mummy from '../SampleMummy'
 export default class HelloWorldScene extends Phaser.Scene {
 	constructor() {
 		super('hello-world')

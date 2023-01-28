@@ -13,6 +13,7 @@ export default class Mummy extends Phaser.Physics.Arcade.Sprite {
 		this.isOnPlatform = false;
 		this.currentPlatform = undefined;
 
+		this.damage = 1;
 		this.takingDamage = false;
 		this.health = 3;
 		this.inmunity = false;
@@ -24,6 +25,7 @@ export default class Mummy extends Phaser.Physics.Arcade.Sprite {
 	takeDamage(damage) {
 		if (!this.takingDamage && !this.inmunity) {
 			this.health -= damage;
+			this.checkDeath();
 			console.log(this.health);
 			this.takingDamage = true;
 			setTimeout(() => { this.takingDamage = false }, 1000);
@@ -66,6 +68,18 @@ export default class Mummy extends Phaser.Physics.Arcade.Sprite {
 	heal(){
 		this.health += 1;
 		return this.health;
+
+	}
+	
+	checkDeath(){
+		if (this.health <= 0) {
+			console.log('Player death');
+			this.disableBody(true, true);
+		}
+	}
+
+	bounce(velocity) {
+		this.setVelocityY(velocity)
 	}
 
 	update() {
