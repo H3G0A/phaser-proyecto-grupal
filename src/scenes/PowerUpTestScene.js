@@ -33,7 +33,7 @@ export default class HelloWorldScene extends Phaser.Scene {
 
 	create() {
 		// Add background
-		this.add.image(400, 300, 'sea').setScale(8);
+		this.add.image(400, 300, 'sea').setScale(10);
 
 		// Add power-ups
 		this.heart = new Heart(this, 400, 500, 300, 'heart');

@@ -10,8 +10,8 @@ export default class HUD  {
         this.lightningIcon = null;
 
         // Initialize coins
-        this.scene.add.image(700, 80, 'coin').setScale(0.08);
-        this.coinsText = this.scene.add.text(750, 75, '0', { fontSize: '30px', fill: '#0'});
+        this.scene.add.image(900, 80, 'coin').setScale(0.08);
+        this.coinsText = this.scene.add.text(930, 75, '0', { fontSize: '30px', fill: '#0'});
 
         // Initialize lifes
         this.setLifes(3);
@@ -25,7 +25,7 @@ export default class HUD  {
 
     // Update lifes counter
     setLifes (lifesNumber){
-        let leftPosition = 750; // Initialize left position
+        let leftPosition = 930; // Initialize left position
 
         for (let i = 0; i < this.heartArray.length; i++){ // Destroy current hearts
             this.heartArray[i].destroy();

@@ -6,8 +6,8 @@ import PowerUpTestScene from './scenes/PowerUpTestScene'
 
 const config = {
 	type: Phaser.AUTO,
-	width: 800,
-	height: 600,
+	width: 960,
+	height: 640,
 	physics: {
 		default: 'arcade',
 		arcade: {
