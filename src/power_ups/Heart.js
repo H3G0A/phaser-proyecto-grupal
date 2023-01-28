@@ -3,7 +3,7 @@ import PowerUp from './PowerUp'
 
 export default class Heart extends PowerUp {
 
-	constructor(scene, x, y, distance, spriteName) {
+	constructor(scene, x, y, spriteName) {
 		super(scene, x, y, spriteName);
 	}
 

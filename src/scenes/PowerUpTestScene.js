@@ -4,7 +4,7 @@ import Coin from '../power_ups/Coin'
 import Star from '../power_ups/Star'
 import Lightning from '../power_ups/Lightning'
 import HUD from '../HUD/HUD'
-import SamplePlayer from '../SamplePlayer'
+import Player from '../characters/Player'
 import MovingPlatform from "../MovingPlatform"
 import Mummy from "../enemies/Mummy"
 
@@ -39,13 +39,13 @@ export default class HelloWorldScene extends Phaser.Scene {
 		this.add.image(400, 300, 'sea').setScale(10);
 
 		// Add power-ups
-		this.heart = new Heart(this, 400, 500, 300, 'heart');
+		this.heart = new Heart(this, 400, 500, 'heart');
         this.heart.setScale(0.05);
-		this.coin = new Coin(this, 400, 700, 300, 'coin');
+		this.coin = new Coin(this, 400, 700, 'coin');
         this.coin.setScale(0.05);
-		this.star = new Star(this, 600, 700, 300, 'star');
+		this.star = new Star(this, 600, 700, 'star');
         this.star.setScale(0.05);
-		this.lightning = new Lightning(this, 600, 500, 300, 'lightning');
+		this.lightning = new Lightning(this, 600, 500, 'lightning');
         this.lightning.setScale(0.05);
 
 		// Add sounds
@@ -62,7 +62,7 @@ export default class HelloWorldScene extends Phaser.Scene {
 		this.hud = new HUD(this);
 
 		// Add player
-		this.player = new SamplePlayer(this, 200, 100, 'player');
+		this.player = new Player(this, 200, 100, 'player');
 
 		// Add moving platforms
 		this.movingPlatforms = [];
@@ -80,7 +80,7 @@ export default class HelloWorldScene extends Phaser.Scene {
 		// Set collisions
 		this.physics.add.collider(this.movingPlatforms, this.player, this.collidePlayerPlatform, null, this);
 		this.physics.add.overlap(this.player, this.heart, () => { this.heart.executePowerUpAction(this.player, this.hud) }, null, this);
-		this.physics.add.overlap(this.player, this.coin, () => { this.coin.executePowerUpAction(this.hud) }, null, this);
+		this.physics.add.overlap(this.player, this.coin, () => { this.coin.executePowerUpAction(null, this.hud) }, null, this);
 		this.physics.add.overlap(this.player, this.star, () => { this.star.executePowerUpAction(this.player) }, null, this);
 		this.physics.add.overlap(this.player, this.lightning, () => { this.lightning.executePowerUpAction(this.player, this.hud) }, null, this);
 		this.physics.add.overlap(this.mummy, this.superShotArray, () => { this.mummy.takeDamage(this.superShotArray[0].damage) }, null, this);

@@ -14,7 +14,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
 		this.cursors = this.scene.input.keyboard.createCursorKeys();
 
-		this.health = 100;
+		this.health = 3;
 		this.damage = 30;
 		this.takingDamage = false;
 		this.inmunity = false;
@@ -32,6 +32,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 			this.checkDeath();
 			console.log(this.health);
 			this.takingDamage = true;
+			this.scene.getHUD().setLifes(this.health);
 			setTimeout(() => { this.takingDamage = false }, 1000);
 		}
 	}

@@ -19,6 +19,7 @@ const config = {
 	},
 	scene: [TestPlayerScene]
 	//scene: [EnemyTestScene]
+	//scene: [PowerUpTestScene]
 }
 
 export default new Phaser.Game(config)
