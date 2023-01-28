@@ -22,6 +22,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 		
 		this.superShotOffsetX = 100;
 		this.superShotOffsetY = -10;
+		this.isOnPlatform = false;
+		this.currentPlatform = undefined;
 	}
 
 	takeDamage(damage) {
@@ -109,6 +111,10 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 			this.disableBody(true, true);
 		}
 
+		if (this.isOnPlatform && this.currentPlatform) { // Executed when the player is on a moving platform
+			this.body.position.x += this.currentPlatform.body.x - this.currentPlatform.previousX;
+			this.body.position.y += this.currentPlatform.body.y - this.currentPlatform.previousY;
+		}
 	}
 
 }
