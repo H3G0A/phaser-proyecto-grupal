@@ -5,9 +5,9 @@ import SamplePlayer from '../SamplePlayer'
 import Koopa from "../enemies/Koopa"
 import Trampoline from "../Trampoline"
 
-export default class HelloWorldScene extends Phaser.Scene {
+export default class EnemyTestScene extends Phaser.Scene {
 	constructor() {
-		super('hello-world')
+		super({key: "enemy"})
 	}
 
 	preload() {
@@ -45,6 +45,7 @@ export default class HelloWorldScene extends Phaser.Scene {
 		// To test health of the enemy
 		//this.physics.add.overlap(this.player, this.mummy, () => { this.mummy.takeDamage(this.player.damage) }, null, this);
 
+		this.input.on("pointerdown", () => this.scene.start("boss"));
 	}
 
 	update() {

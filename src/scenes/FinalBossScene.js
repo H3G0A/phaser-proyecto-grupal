@@ -4,20 +4,23 @@ import Mummy from '../enemies/Mummy'
 import SamplePlayer from '../SamplePlayer'
 
 export default class FinalBossScene extends Phaser.Scene {
+	constructor(){
+        super({key: "boss"});
+    }
 
 	preload() {
-		this.load.image('tile', 'res/TileseBossStage.png');
-		this.load.tilemapTiledJSON('map','res/bossfinal2.json');
-		this.load.spritesheet('player', 'res/player/idle/idle-1.png', { frameWidth: 71, frameHeight: 67 });		
+		this.load.image('tileBoss', 'res/TileseBossStage.png');
+		this.load.tilemapTiledJSON('mapBoss','res/levels/finalBoss.json');
+		//this.load.spritesheet('player', 'res/player/idle/idle-1.png', { frameWidth: 71, frameHeight: 67 });		
 		this.load.spritesheet('demon', '../../res/enemies/hell-beast-id.png', { frameWidth: 55, frameHeight: 67 });	
 		//this.load.spritesheet('mummy', '../../res/enemies/mummy37x45.png', { frameWidth: 37, frameHeight: 45 });	
 	}
 	create() {
 		//Add tile map to the key
-		var map = this.make.tilemap({key: 'map'});
+		var map = this.make.tilemap({key: 'mapBoss'});
 
 		//Add tileset to the tile
-		var tiles = map.addTilesetImage('TileseBossStage', 'tile');
+		var tiles = map.addTilesetImage('TileseBossStage', 'tileBoss');
 
 		//Declare layers in order
 		var layerFondo = map.createLayer('fondo', tiles, 0, 0);
@@ -49,6 +52,8 @@ export default class FinalBossScene extends Phaser.Scene {
 
 		//Scale Final Boss
 		this.demon.scale = 3.5;
+
+		this.input.on("pointerdown", () => this.scene.start("Level1"));
 	}
 	update() {
 		this.player.update();
