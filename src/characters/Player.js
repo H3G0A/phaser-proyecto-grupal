@@ -44,11 +44,15 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 			this.setVelocityX(0);
 		}
 
+<<<<<<< Updated upstream:src/SamplePlayer.js
+=======
+
 		if (this.health <= 0) {
 			console.log('GAME OVER');
 			this.disableBody(true, true);
 		}
 
+>>>>>>> Stashed changes:src/characters/Player.js
 	}
 
 }
