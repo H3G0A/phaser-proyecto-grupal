@@ -17,8 +17,9 @@ export default class HelloWorldScene extends Phaser.Scene {
 		this.load.atlas('soldier', '../../res/enemies/soldier_spritesheet.png', '../../res/enemies/soldier_spritesheet.json');
 		this.load.image('bullet', '../../res/enemies/bullet.png');
 		this.load.atlas('koopa', '../../res/enemies/koopa.png', '../../res/enemies/koopa_spritesheet.json');
-		this.load.spritesheet('player-walk', 'res/player/walk/player_walk.png', { frameWidth: 71, frameHeight: 67 });
-		this.load.spritesheet('player-shoot', 'res/player/shoot/shoot.png', { frameWidth: 71, frameHeight: 67 });
+		this.load.spritesheet('player-walk-right', 'res/player/walk/player_walk_right.png', { frameWidth: 71, frameHeight: 67 });
+		this.load.spritesheet('player-walk-left', 'res/player/walk/player_walk_left.png', { frameWidth: 71, frameHeight: 67 });
+		this.load.spritesheet('player-shoot-right', 'res/player/shoot/shoot_right.png', { frameWidth: 71, frameHeight: 67 });
 		this.load.spritesheet('player-hurt', 'res/player/hurt/hurt.png', { frameWidth: 71, frameHeight: 67 });
 		this.load.spritesheet('player-jump', 'res/player/jump/jump_sprite.png', { frameWidth: 71, frameHeight: 67 });
 

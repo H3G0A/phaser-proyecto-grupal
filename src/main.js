@@ -17,7 +17,7 @@ const config = {
 			gravity: { y: 500 }
 		}
 	},
-	scene: [EnemyTestScene]
+	scene: [PowerUpTestScene]
 	//scene: [EnemyTestScene]
 }
 

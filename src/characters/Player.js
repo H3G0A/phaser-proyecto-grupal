@@ -17,8 +17,17 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
 		this.scene.anims.create(
 			{
-				key: 'player-walk',
-				frames: this.scene.anims.generateFrameNumbers('player-walk', { start: 0, end: 15 }),
+				key: 'player-walk-right',
+				frames: this.scene.anims.generateFrameNumbers('player-walk-right', { start: 0, end: 15 }),
+				frameRate: 20,
+				repeat : 1
+			}
+		);
+
+		this.scene.anims.create(
+			{
+				key: 'player-walk-left',
+				frames: this.scene.anims.generateFrameNumbers('player-walk-left', { start: 0, end: 15 }),
 				frameRate: 20,
 				repeat : 1
 			}
@@ -44,8 +53,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
 		this.scene.anims.create(
 			{
-				key: 'shoot',
-				frames: this.scene.anims.generateFrameNumbers('player-shoot', { start: 0, end: 1 }),
+				key: 'shoot-right',
+				frames: this.scene.anims.generateFrameNumbers('player-shoot-right', { start: 0, end: 1 }),
 				frameRate: 10,
 				repeat : 2
 			}
@@ -131,7 +140,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 	}
 
 	shoot(){
-		this.play('shoot').on('animationcomplete', () => {this.play('stay')});
+		this.play('shoot-right').on('animationcomplete', () => {this.play('stay')});
 		setTimeout(() => {
 			this.bulletGroup.generateBullet(this.body.position.x + 50 , this.body.position.y + 30, 1);
 		}, 300);
@@ -167,11 +176,14 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 		}
 		else if (this.cursors.left.isDown) {
 			this.setVelocityX(-200);
+			if (!(this.anims.isPlaying && this.anims.currentAnim.key === 'player-jump')) {
+				this.play('player-walk-left').on('animationcomplete', () => {this.play('stay')});
+			}
 		}
 		else if (this.cursors.right.isDown) {
 			this.setVelocityX(200);
 			if (!(this.anims.isPlaying && this.anims.currentAnim.key === 'player-jump')) {
-				this.play('player-walk').on('animationcomplete', () => {this.play('stay')});
+				this.play('player-walk-right').on('animationcomplete', () => {this.play('stay')});
 			}
 		}else if (this.spaceKey.isDown){
 			if(this.superShot){
