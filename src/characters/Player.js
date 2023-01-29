@@ -15,6 +15,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 		this.cursors = this.scene.input.keyboard.createCursorKeys();
 		this.spaceKey = this.scene.input.keyboard.addKey('SPACE');
 		this.superShotKey = this.scene.input.keyboard.addKey('X');
+
+		// Fix collider
 		this.body.setSize(25, 55);
 		this.body.offset.y = 13;
 
