@@ -151,9 +151,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
 	shoot(direction){
 		if(direction > 0){
-			this.play('shoot-right').on('animationcomplete', () => {this.play('stay')});
+			this.anims.play('shoot-right',true).on('animationcomplete', () => {this.play('stay')});
 		}else{
-			this.play('shoot-left').on('animationcomplete', () => {this.play('stay')});
+			this.anims.play('shoot-left',true).on('animationcomplete', () => {this.play('stay')});
 		}
 		setTimeout(() => {
 			this.bulletGroup.generateBullet(this.body.position.x + 50 , this.body.position.y + 30, direction);
@@ -164,9 +164,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 	executeSuperShot(direction){
 		if (this.superShot){
 			if(direction > 0){
-				this.play('shoot-right').on('animationcomplete', () => {this.play('stay')});
+				this.anims.play('shoot-right',true).on('animationcomplete', () => {this.play('stay')});
 			}else{
-				this.play('shoot-left').on('animationcomplete', () => {this.play('stay')});
+				this.anims.play('shoot-left',true).on('animationcomplete', () => {this.play('stay')});
 			}
 			this.superShot = false;
 			this.scene.getHUD().removeLightning();

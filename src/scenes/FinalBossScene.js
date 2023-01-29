@@ -12,11 +12,12 @@ export default class FinalBossScene extends Phaser.Scene {
 		this.load.spritesheet('demon', '../../res/enemies/hell-beast-id.png', { frameWidth: 55, frameHeight: 67 });
 		this.load.spritesheet('player-walk-right', 'res/player/walk/player_walk_right.png', { frameWidth: 71, frameHeight: 67 });
 		this.load.spritesheet('player-walk-left', 'res/player/walk/player_walk_left.png', { frameWidth: 71, frameHeight: 67 });
-		this.load.spritesheet('player-shoot-right', 'res/player/shoot/shoot-right.png', { frameWidth: 71, frameHeight: 67 });
-		this.load.spritesheet('player-shoot-left', 'res/player/shoot/shoot-left.png', { frameWidth: 71, frameHeight: 67 });
+		this.load.spritesheet('player-shoot-right', 'res/player/shoot/shoot_right.png', { frameWidth: 71, frameHeight: 67 });
+		this.load.spritesheet('player-shoot-left', 'res/player/shoot/shoot_left.png', { frameWidth: 71, frameHeight: 67 });
 		this.load.spritesheet('player-hurt', 'res/player/hurt/hurt.png', { frameWidth: 71, frameHeight: 67 });
 		this.load.spritesheet('player-jump', 'res/player/jump/jump_sprite.png', { frameWidth: 71, frameHeight: 67 });
 		this.load.image('bullet', '../../res/enemies/bullet.png');
+		this.load.image('supershot', '../../res/super_shot.png');
 		//this.load.spritesheet('mummy', '../../res/enemies/mummy37x45.png', { frameWidth: 37, frameHeight: 45 });
 	}
 	create() {
