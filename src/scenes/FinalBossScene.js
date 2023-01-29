@@ -42,8 +42,13 @@ export default class FinalBossScene extends Phaser.Scene {
 
 		//this.mummy = new Mummy(this, 400, 300, 0, 'mummy');
 
+		this.superShotArray = [];
 		// Set collisions damage
 		this.physics.add.overlap(this.player, this.demon, () => { this.player.takeDamage(this.demon.damage) }, null, this);
+		this.physics.add.overlap(this.demon, this.superShotArray, () => { this.demon.takeDamage(this.superShotArray[0].damage) }, null, this);
+		this.physics.add.overlap(this.demon, this.player.bulletGroup, () => {
+			this.demon.takeDamage(this.player.bulletGroup.damage);
+			this.player.bulletItem.destroy; }, null, this);
 		//this.physics.add.overlap(this.player, this.mummy, () => { this.player.takeDamage(this.mummy.damage) }, null, this);
 
 		//Set collisions to the entities and the player

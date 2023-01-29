@@ -92,7 +92,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 		this.isOnPlatform = false;
 		this.currentPlatform = undefined;
 
-		this.bulletGroup = new Bullets(this.scene, 'bullet')
+		this.bulletGroup = new Bullets(this.scene, 'bullet');
+		this.bulletItem = undefined;
 
 		if(this.health >0 ){
 			this.play('stay');
@@ -156,7 +157,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 			this.anims.play('shoot-left',true).on('animationcomplete', () => {this.play('stay')});
 		}
 		setTimeout(() => {
-			this.bulletGroup.generateBullet(this.body.position.x + 50 , this.body.position.y + 30, direction);
+			this.bulletItem = this.bulletGroup.generateBullet(this.body.position.x + 50 , this.body.position.y + 30, direction);
 		}, 300);
 	}
 
