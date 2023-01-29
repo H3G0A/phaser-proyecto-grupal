@@ -20,7 +20,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 			{
 				key: 'player-walk-right',
 				frames: this.scene.anims.generateFrameNumbers('player-walk-right', { start: 0, end: 15 }),
-				frameRate: 20,
+				frameRate: 10,
 				repeat : 1
 			}
 		);
@@ -29,7 +29,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 			{
 				key: 'player-walk-left',
 				frames: this.scene.anims.generateFrameNumbers('player-walk-left', { start: 0, end: 15 }),
-				frameRate: 20,
+				frameRate: 10,
 				repeat : 1
 			}
 		);
@@ -178,7 +178,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 	update() {
 
 		if (this.cursors.up.isDown == true) {
-			this.setVelocityY(-500);
+			this.setVelocityY(-400);
 			this.play('player-jump').on('animationcomplete', () => {this.play('stay')});
 		}
 		else if (this.cursors.down.isDown) {
