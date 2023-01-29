@@ -199,18 +199,31 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 		else if (this.cursors.down.isDown) {
 			this.setVelocityY(200);
 		}
-		else if (this.cursors.left.isDown) {
+		if (this.cursors.left.isDown && this.cursors.right.isUp) {
 			this.setVelocityX(-200);
 			if (!(this.anims.isPlaying && this.anims.currentAnim.key === 'player-jump')) {
 				this.anims.play('player-walk-left',true).on('animationcomplete', () => {this.anims.play('stay',true)});
 			}
 		}
-		else if (this.cursors.right.isDown) {
+		else if(this.cursors.left.isUp && !this.cursors.right.isDown){
+			if (this.anims.isPlaying && this.anims.currentAnim.key === 'player-walk-left') {
+				this.setVelocityX(0);
+				this.anims.play('stay',true);
+			}
+		}
+		if (this.cursors.right.isDown) {
 			this.setVelocityX(200);
 			if (!(this.anims.isPlaying && this.anims.currentAnim.key === 'player-jump')) {
 				this.anims.play('player-walk-right',true).on('animationcomplete', () => {this.anims.play('stay',true)});
 			}
-		}else if (this.spaceKey.isDown){
+		}
+		else if(this.cursors.right.isUp && !this.cursors.left.isDown){
+			if (this.anims.isPlaying && this.anims.currentAnim.key === 'player-walk-right') {
+				this.setVelocityX(0);
+				this.anims.play('stay',true);
+			}
+		}
+		if (this.spaceKey.isDown){
 				if (this.anims.isPlaying && this.anims.currentAnim.key === 'player-walk-left') {
 					this.shoot(-1);
 				}else if (this.anims.isPlaying && this.anims.currentAnim.key === 'player-walk-right' || this.anims.currentAnim.key === 'stay') {
@@ -223,7 +236,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 				this.executeSuperShot(1);
 			}
 		}
-		else {
+		else if (this.cursors.left.isUp && this.cursors.right.isUp && this.cursors.down.isUp && this.cursors.up.isUp){
 			this.setVelocityX(0);
 		}
 
