@@ -21,7 +21,7 @@ export default class ThirdLevelScene extends Phaser.Scene
 
         groundLayer.setCollisionByExclusion([], true);
 
-        this.input.on("pointerdown", () => this.scene.start("enemy"));
+        this.input.on("pointerdown", () => this.scene.start("Level1"));
 
         //PLAYER AND FLAG
         this.flag = this.add.image(10850, 2351 + Yoffset, "flag");

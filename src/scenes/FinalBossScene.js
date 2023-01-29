@@ -9,8 +9,8 @@ export default class FinalBossScene extends Phaser.Scene {
     }
 
 	preload() {
-		this.load.image('tile', 'res/TileseBossStage.png');
-		this.load.tilemapTiledJSON('map','res/bossfinal2.json');
+		this.load.image('tileBoss', 'res/TileseBossStage.png');
+		this.load.tilemapTiledJSON('mapBoss','res/levels/bossfinal2.json');
 		this.load.spritesheet('player', 'res/player/idle/idle_sprite.png', { frameWidth: 71, frameHeight: 67 });
 		this.load.spritesheet('demon', '../../res/enemies/hell-beast-id.png', { frameWidth: 55, frameHeight: 67 });
 		this.load.spritesheet('player-walk-right', 'res/player/walk/player_walk_right.png', { frameWidth: 71, frameHeight: 67 });
@@ -29,7 +29,7 @@ export default class FinalBossScene extends Phaser.Scene {
 
 		//Add tileset to the tile
 		var tiles = map.addTilesetImage('TileseBossStage', 'tileBoss');
-
+		console.log(tiles)
 		//Declare layers in order
 		var layerFondo = map.createLayer('fondo', tiles, 0, 0);
 		var layerMountain = map.createLayer('mountain', tiles, 0, 0);
@@ -70,8 +70,6 @@ export default class FinalBossScene extends Phaser.Scene {
 
 		//Scale Final Boss
 		this.demon.scale = 3.5;
-
-		this.input.on("pointerdown", () => this.scene.start("Level1"));
 	}
 	update() {
 		const cam = this.cameras.main;

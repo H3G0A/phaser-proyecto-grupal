@@ -41,7 +41,7 @@ export default class FirstLevelScene extends Phaser.Scene
         var groundLayer = map.createLayer("ground", tiles, 0, 0 + Yoffset);
         var propsLayer = map.createLayer("props", tiles, 0, 0 + Yoffset);
         
-        groundLayer.setCollisionByExclusion([], true);
+        groundLayer.setCollisionByExclusion([-1], true);
         
         this.input.on("pointerdown", () => this.scene.start("Level2")); //DEBUG PARA CAMBIAR DE ESCENA HASTA QUE SE AÑADA EL JUGADOR
         
