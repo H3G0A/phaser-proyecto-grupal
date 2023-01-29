@@ -43,7 +43,10 @@ export default class HelloWorldScene extends Phaser.Scene {
 		// Set collisions
 		this.physics.add.overlap(this.player, this.mummy, () => { this.player.takeDamage(this.mummy.damage) }, null, this);
 		this.physics.add.overlap(this.player, this.soldier, () => { this.player.takeDamage(this.soldier.damage) }, null, this);
-		this.physics.add.overlap(this.player, this.soldier.bulletGroup, () => { this.player.takeDamage(this.soldier.damage) }, null, this);
+		this.physics.add.overlap(this.player, this.soldier.bulletGroup, (player, bullet) => { 
+			this.player.takeDamage(this.soldier.damage);
+			bullet.destroy();
+		}, null, this);
 		this.physics.add.overlap(this.player, this.koopa, () => { this.player.takeDamage(this.koopa.damage) }, null, this);
 
 		this.physics.add.collider(this.player, this.trampoline, () => { this.player.bounce(-600) }, null, this);
