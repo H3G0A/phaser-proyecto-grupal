@@ -32,8 +32,7 @@ export default class Bullets extends Phaser.Physics.Arcade.Group {
 		}, item);
 
 		// Destroy if reaches 5 seconds lifetime
-		// this.autoDestroy(item);
-		return item;
+		this.autoDestroy(item);
 	}
 
 }

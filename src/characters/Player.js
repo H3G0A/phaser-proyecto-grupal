@@ -93,7 +93,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 		this.currentPlatform = undefined;
 
 		this.bulletGroup = new Bullets(this.scene, 'bullet');
-		this.bulletItem = undefined;
 
 		if(this.health >0 ){
 			this.play('stay');
@@ -157,7 +156,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 			this.anims.play('shoot-left',true).on('animationcomplete', () => {this.play('stay')});
 		}
 		setTimeout(() => {
-			this.bulletItem = this.bulletGroup.generateBullet(this.body.position.x + 50 , this.body.position.y + 30, direction);
+			this.bulletGroup.generateBullet(this.body.position.x + 50 , this.body.position.y + 30, direction);
 		}, 300);
 	}
 
@@ -213,13 +212,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 		}else if (this.spaceKey.isDown){
 				if (this.anims.isPlaying && this.anims.currentAnim.key === 'player-walk-left') {
 					this.shoot(-1);
-				}else{
+				}else if (this.anims.isPlaying && this.anims.currentAnim.key === 'player-walk-right' || this.anims.currentAnim.key === 'stay') {
 					this.shoot(1);
 				}
 		}else if (this.superShotKey.isDown){
 			if (this.anims.isPlaying && this.anims.currentAnim.key === 'player-walk-left') {
 				this.executeSuperShot(-1);
-			}else{
+			}else if (this.anims.isPlaying && this.anims.currentAnim.key === 'player-walk-right' || this.anims.currentAnim.key === 'stay'){
 				this.executeSuperShot(1);
 			}
 		}
