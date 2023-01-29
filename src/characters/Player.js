@@ -197,17 +197,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 			}
 		}else if (this.spaceKey.isDown){
 			if(this.superShot){
-				if (this.anims.isPlaying && this.anims.currentAnim.key === 'player-walk-right') {
-					this.executeSuperShot(1);
-				}else if (this.anims.isPlaying && this.anims.currentAnim.key === 'player-walk-left') {
+				if (this.anims.isPlaying && this.anims.currentAnim.key === 'player-walk-left') {
 					this.executeSuperShot(-1);
 				}else{
 					this.executeSuperShot(1);
 				}
 			}else{
-				if (this.anims.isPlaying && this.anims.currentAnim.key === 'player-walk-right') {
-					this.shoot(1);
-				}else if (this.anims.isPlaying && this.anims.currentAnim.key === 'player-walk-left') {
+				if (this.anims.isPlaying && this.anims.currentAnim.key === 'player-walk-left') {
 					this.shoot(-1);
 				}else{
 					this.shoot(1);
