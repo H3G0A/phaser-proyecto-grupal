@@ -14,6 +14,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 		this.setCollideWorldBounds(true);
 		this.cursors = this.scene.input.keyboard.createCursorKeys();
 		this.spaceKey = this.scene.input.keyboard.addKey('SPACE');
+		this.enemy = scene.mummy;
 
 		this.scene.anims.create(
 			{
@@ -139,20 +140,29 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 		this.superShot = true;
 	}
 
-	shoot(){
-		this.play('shoot-right').on('animationcomplete', () => {this.play('stay')});
+	shoot(direction){
+		if(direction > 0){
+			this.play('shoot-right').on('animationcomplete', () => {this.play('stay')});
+		}else{
+			this.play('shoot-left').on('animationcomplete', () => {this.play('stay')});
+		}
 		setTimeout(() => {
-			this.bulletGroup.generateBullet(this.body.position.x + 50 , this.body.position.y + 30, 1);
+			this.bulletGroup.generateBullet(this.body.position.x + 50 , this.body.position.y + 30, direction);
 		}, 300);
 	}
 
 	// Executes 'Super Shot'
-	executeSuperShot(){
+	executeSuperShot(direction){
 		if (this.superShot){
+			if(direction > 0){
+				this.play('shoot-right').on('animationcomplete', () => {this.play('stay')});
+			}else{
+				this.play('shoot-left').on('animationcomplete', () => {this.play('stay')});
+			}
 			this.superShot = false;
 			this.scene.getHUD().removeLightning();
 			this.scene.superShotSound.play();
-			var superShotBullet = new SuperShot (this.scene, this.x + this.superShotOffsetX, this.y + this.superShotOffsetY, 'supershot', 1);
+			var superShotBullet = new SuperShot (this.scene, this.x + this.superShotOffsetX, this.y + this.superShotOffsetY, 'supershot', direction);
 			superShotBullet.setScale(0.5);
 			this.scene.superShotArray.push(superShotBullet);
 			superShotBullet.generateSuperShot();
@@ -187,9 +197,21 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 			}
 		}else if (this.spaceKey.isDown){
 			if(this.superShot){
-				this.executeSuperShot();
+				if (this.anims.isPlaying && this.anims.currentAnim.key === 'player-walk-right') {
+					this.executeSuperShot(1);
+				}else if (this.anims.isPlaying && this.anims.currentAnim.key === 'player-walk-left') {
+					this.executeSuperShot(-1);
+				}else{
+					this.executeSuperShot(1);
+				}
 			}else{
-				this.shoot();
+				if (this.anims.isPlaying && this.anims.currentAnim.key === 'player-walk-right') {
+					this.shoot(1);
+				}else if (this.anims.isPlaying && this.anims.currentAnim.key === 'player-walk-left') {
+					this.shoot(-1);
+				}else{
+					this.shoot(1);
+				}
 			}
 		}
 		else {
