@@ -46,16 +46,16 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 		this.scene.anims.create(
 			{
 				key: 'player-hurt',
-				frames: this.scene.anims.generateFrameNumbers('player-hurt', { start: 0, end: 3 }),
+				frames: this.scene.anims.generateFrameNumbers('player-hurt', { start: 0, end: 0 }),
 				frameRate: 10,
-				repeat : 1
+				repeat : 2
 			}
 		);
 
 		this.scene.anims.create(
 			{
 				key: 'shoot-right',
-				frames: this.scene.anims.generateFrameNumbers('player-shoot-right', { start: 0, end: 1 }),
+				frames: this.scene.anims.generateFrameNumbers('player-shoot-right', { start: 0, end: 0 }),
 				frameRate: 10,
 				repeat : 2
 			}
@@ -64,7 +64,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 		this.scene.anims.create(
 			{
 				key: 'shoot-left',
-				frames: this.scene.anims.generateFrameNumbers('player-shoot-left', { start: 0, end: 1 }),
+				frames: this.scene.anims.generateFrameNumbers('player-shoot-left', { start: 0, end: 0 }),
 				frameRate: 10,
 				repeat : 2
 			}
@@ -187,8 +187,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 	update() {
 
 		if (this.cursors.up.isDown == true) {
-			this.setVelocityY(-400);
-			this.play('player-jump').on('animationcomplete', () => {this.play('stay')});
+			if (!(this.anims.isPlaying && this.anims.currentAnim.key === 'player-jump')) {
+				this.setVelocityY(-400);
+				this.anims.play('player-jump',true).on('animationcomplete', () => {
+					this.anims.play('stay',true);
+					this.setVelocityY(0);
+				});
+			}
 		}
 		else if (this.cursors.down.isDown) {
 			this.setVelocityY(200);
@@ -196,13 +201,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 		else if (this.cursors.left.isDown) {
 			this.setVelocityX(-200);
 			if (!(this.anims.isPlaying && this.anims.currentAnim.key === 'player-jump')) {
-				this.play('player-walk-left').on('animationcomplete', () => {this.play('stay')});
+				this.anims.play('player-walk-left',true).on('animationcomplete', () => {this.anims.play('stay',true)});
 			}
 		}
 		else if (this.cursors.right.isDown) {
 			this.setVelocityX(200);
 			if (!(this.anims.isPlaying && this.anims.currentAnim.key === 'player-jump')) {
-				this.play('player-walk-right').on('animationcomplete', () => {this.play('stay')});
+				this.anims.play('player-walk-right',true).on('animationcomplete', () => {this.anims.play('stay',true)});
 			}
 		}else if (this.spaceKey.isDown){
 				if (this.anims.isPlaying && this.anims.currentAnim.key === 'player-walk-left') {
