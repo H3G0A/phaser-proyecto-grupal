@@ -133,8 +133,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 	shoot(){
 		this.play('shoot').on('animationcomplete', () => {this.play('stay')});
 		setTimeout(() => {
-			this.bulletGroup.generateBullet(this.body.position.x - 10, this.body.position.y + 10);
-		}, 600);
+			this.bulletGroup.generateBullet(this.body.position.x + 50 , this.body.position.y + 30, 1);
+		}, 300);
 	}
 
 	// Executes 'Super Shot'
@@ -174,8 +174,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 				this.play('player-walk').on('animationcomplete', () => {this.play('stay')});
 			}
 		}else if (this.spaceKey.isDown){
-			this.shoot();
-			this.executeSuperShot();
+			if(this.superShot){
+				this.executeSuperShot();
+			}else{
+				this.shoot();
+			}
 		}
 		else {
 			this.setVelocityX(0);
