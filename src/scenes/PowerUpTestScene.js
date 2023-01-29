@@ -95,7 +95,10 @@ export default class HelloWorldScene extends Phaser.Scene {
 		this.physics.add.overlap(this.player, this.star, () => { this.star.executePowerUpAction(this.player) }, null, this);
 		this.physics.add.overlap(this.player, this.lightning, () => { this.lightning.executePowerUpAction(this.player, this.hud) }, null, this);
 		this.physics.add.overlap(this.mummy, this.superShotArray, () => { this.mummy.takeDamage(this.superShotArray[0].damage)}, null, this);
-		this.physics.add.overlap(this.mummy, this.player.bulletGroup, () => { this.mummy.takeDamage(this.player.bulletGroup.damage, this.player.bulletGroup)}, null, this);
+		this.physics.add.overlap(this.mummy, this.player.bulletGroup, (player, bullet) => { 
+			this.mummy.takeDamage(this.player.bulletGroup.damage);
+			bullet.destroy();
+		}, null, this);
 
 		this.physics.add.overlap(this.player, this.mummy, () => { this.player.takeDamage(this.mummy.damage) }, null, this);
 	}
