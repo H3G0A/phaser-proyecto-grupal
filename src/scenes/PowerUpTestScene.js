@@ -43,7 +43,7 @@ export default class HelloWorldScene extends Phaser.Scene {
 
 	create() {
 		// Add background
-		this.add.image(400, 300, 'sea').setScale(10);
+		let bg = this.add.image(400, 300, 'sea').setScale(10);
 
 		// Add power-ups
 		this.heart = new Heart(this, 400, 500, 300, 'heart');
@@ -70,6 +70,10 @@ export default class HelloWorldScene extends Phaser.Scene {
 
 		// Add player
 		this.player = new Player(this, 200, 100, 'player');
+
+		// Config camera and make follow player
+		this.cameras.main.setBounds(0,0,bg.displayWidth, bg.displayHeight);
+		this.cameras.main.startFollow(this.player);
 
 		// Add moving platforms
 		this.movingPlatforms = [];

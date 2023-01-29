@@ -40,6 +40,10 @@ export default class FinalBossScene extends Phaser.Scene {
 		this.player = new Player(this, 200, 100, 'player');
 		this.demon = new BossDemon(this, 850, 300, 0, 'demon');
 
+		// Config camera and make follow player
+		this.cameras.main.setBounds(0,0,layerFondo.displayWidth, layerFondo.displayHeight);
+		this.cameras.main.startFollow(this.player);
+
 		//this.mummy = new Mummy(this, 400, 300, 0, 'mummy');
 
 		this.superShotArray = [];
