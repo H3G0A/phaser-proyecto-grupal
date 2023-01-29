@@ -100,7 +100,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
 	}
 
-	takeDamage(damage) {
+	takeDamage(damage, bulletGroup) {
+		if (bulletGroup){
+			bulletGroup.children.entries[0].destroy();
+		}
+
 		if (!this.takingDamage) {
 			this.health -= damage;
 			this.checkDeath();

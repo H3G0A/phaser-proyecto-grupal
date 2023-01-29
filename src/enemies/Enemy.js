@@ -14,7 +14,11 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
 		this.takingDamage = false;
 	}
 
-	takeDamage(damage) {
+	takeDamage(damage, bulletGroup) {
+		if (bulletGroup){
+			bulletGroup.children.entries[0].destroy();
+		}
+		
 		if (!this.takingDamage) {
 			this.health -= damage;
 			this.checkDeath();
