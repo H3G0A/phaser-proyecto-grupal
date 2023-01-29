@@ -14,7 +14,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 		this.setCollideWorldBounds(true);
 		this.cursors = this.scene.input.keyboard.createCursorKeys();
 		this.spaceKey = this.scene.input.keyboard.addKey('SPACE');
-		this.enemy = scene.mummy;
+		this.superShotKey = this.scene.input.keyboard.addKey('X');
 
 		this.scene.anims.create(
 			{
@@ -56,6 +56,15 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 			{
 				key: 'shoot-right',
 				frames: this.scene.anims.generateFrameNumbers('player-shoot-right', { start: 0, end: 1 }),
+				frameRate: 10,
+				repeat : 2
+			}
+		);
+
+		this.scene.anims.create(
+			{
+				key: 'shoot-left',
+				frames: this.scene.anims.generateFrameNumbers('player-shoot-left', { start: 0, end: 1 }),
 				frameRate: 10,
 				repeat : 2
 			}
@@ -196,18 +205,16 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 				this.play('player-walk-right').on('animationcomplete', () => {this.play('stay')});
 			}
 		}else if (this.spaceKey.isDown){
-			if(this.superShot){
-				if (this.anims.isPlaying && this.anims.currentAnim.key === 'player-walk-left') {
-					this.executeSuperShot(-1);
-				}else{
-					this.executeSuperShot(1);
-				}
-			}else{
 				if (this.anims.isPlaying && this.anims.currentAnim.key === 'player-walk-left') {
 					this.shoot(-1);
 				}else{
 					this.shoot(1);
 				}
+		}else if (this.superShotKey.isDown){
+			if (this.anims.isPlaying && this.anims.currentAnim.key === 'player-walk-left') {
+				this.executeSuperShot(-1);
+			}else{
+				this.executeSuperShot(1);
 			}
 		}
 		else {
