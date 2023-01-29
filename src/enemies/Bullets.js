@@ -8,6 +8,7 @@ export default class Bullets extends Phaser.Physics.Arcade.Group {
 		this.scene = scene;
 		this.scene.add.existing(this);
 		this.maxSize = 15;
+		this.damage = 1;
 	}
 
 	autoDestroy(bullet) {

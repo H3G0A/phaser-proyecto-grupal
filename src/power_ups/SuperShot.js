@@ -9,16 +9,16 @@ export default class SuperShot extends Phaser.Physics.Arcade.Sprite  {
 		this.scene.physics.add.existing(this);
 		this.body.setAllowGravity(false);
 		this.body.velocity.x = direction * 300;
-		this.damage = 3; 
+		this.damage = 3;
 	}
 
 	// Destroy item if reaches 5 seconds lifetime
 	autoDestroy() {
-		setTimeout(() => { 
+		setTimeout(() => {
 			this.destroy();
 		}, 2000);
 	}
-	
+
 	// Execute a 'Super Shot'
 	generateSuperShot() {
 		this.scene.add.existing(this); //Add beam to the scene

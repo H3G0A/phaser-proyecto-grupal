@@ -12,9 +12,12 @@ export default class FinalBossScene extends Phaser.Scene {
 		this.load.spritesheet('demon', '../../res/enemies/hell-beast-id.png', { frameWidth: 55, frameHeight: 67 });
 		this.load.spritesheet('player-walk-right', 'res/player/walk/player_walk_right.png', { frameWidth: 71, frameHeight: 67 });
 		this.load.spritesheet('player-walk-left', 'res/player/walk/player_walk_left.png', { frameWidth: 71, frameHeight: 67 });
-		this.load.spritesheet('player-shoot-right', 'res/player/shoot/shoot-right.png', { frameWidth: 71, frameHeight: 67 });
+		this.load.spritesheet('player-shoot-right', 'res/player/shoot/shoot_right.png', { frameWidth: 71, frameHeight: 67 });
+		this.load.spritesheet('player-shoot-left', 'res/player/shoot/shoot_left.png', { frameWidth: 71, frameHeight: 67 });
 		this.load.spritesheet('player-hurt', 'res/player/hurt/hurt.png', { frameWidth: 71, frameHeight: 67 });
 		this.load.spritesheet('player-jump', 'res/player/jump/jump_sprite.png', { frameWidth: 71, frameHeight: 67 });
+		this.load.image('bullet', '../../res/enemies/bullet.png');
+		this.load.image('supershot', '../../res/super_shot.png');
 		//this.load.spritesheet('mummy', '../../res/enemies/mummy37x45.png', { frameWidth: 37, frameHeight: 45 });
 	}
 	create() {
@@ -37,10 +40,17 @@ export default class FinalBossScene extends Phaser.Scene {
 		this.player = new Player(this, 200, 100, 'player');
 		this.demon = new BossDemon(this, 850, 300, 0, 'demon');
 
+		// Config camera and make follow player
+		this.cameras.main.setBounds(0,0,layerFondo.displayWidth, layerFondo.displayHeight);
+		this.cameras.main.startFollow(this.player);
+
 		//this.mummy = new Mummy(this, 400, 300, 0, 'mummy');
 
+		this.superShotArray = [];
 		// Set collisions damage
 		this.physics.add.overlap(this.player, this.demon, () => { this.player.takeDamage(this.demon.damage) }, null, this);
+		this.physics.add.overlap(this.demon, this.superShotArray, () => { this.demon.takeDamage(this.superShotArray[0].damage)}, null, this);
+		this.physics.add.overlap(this.demon, this.player.bulletGroup, () => {this.demon.takeDamage(this.player.bulletGroup.damage)}, null, this);
 		//this.physics.add.overlap(this.player, this.mummy, () => { this.player.takeDamage(this.mummy.damage) }, null, this);
 
 		//Set collisions to the entities and the player

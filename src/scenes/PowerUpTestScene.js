@@ -22,12 +22,14 @@ export default class HelloWorldScene extends Phaser.Scene {
 		this.load.image('lightning', '../../res/power_ups/blue_power_icon.png');
 		this.load.image('supershot', '../../res/super_shot.png');
 		this.load.image('box', '../../res/box.png');
+		this.load.image('bullet', '../../res/enemies/bullet.png');
 
 		this.load.spritesheet('mummy', '../../res/enemies/mummy37x45.png', { frameWidth: 37, frameHeight: 45 });
 		this.load.spritesheet('player', '../../res/player/idle/idle_sprite.png', { frameWidth: 71, frameHeight: 67 });
 		this.load.spritesheet('player-walk-right', 'res/player/walk/player_walk_right.png', { frameWidth: 71, frameHeight: 67 });
 		this.load.spritesheet('player-walk-left', 'res/player/walk/player_walk_left.png', { frameWidth: 71, frameHeight: 67 });
 		this.load.spritesheet('player-shoot-right', 'res/player/shoot/shoot_right.png', { frameWidth: 71, frameHeight: 67 });
+		this.load.spritesheet('player-shoot-left', 'res/player/shoot/shoot_left.png', { frameWidth: 71, frameHeight: 67 });
 		this.load.spritesheet('player-hurt', 'res/player/hurt/hurt.png', { frameWidth: 71, frameHeight: 67 });
 		this.load.spritesheet('player-jump', 'res/player/jump/jump_sprite.png', { frameWidth: 71, frameHeight: 67 });
 
@@ -41,7 +43,7 @@ export default class HelloWorldScene extends Phaser.Scene {
 
 	create() {
 		// Add background
-		this.add.image(400, 300, 'sea').setScale(10);
+		let bg = this.add.image(400, 300, 'sea').setScale(10);
 
 		// Add power-ups
 		this.heart = new Heart(this, 400, 500, 'heart');
@@ -69,6 +71,10 @@ export default class HelloWorldScene extends Phaser.Scene {
 		// Add player
 		this.player = new Player(this, 200, 100, 'player');
 
+		// Config camera and make follow player
+		this.cameras.main.setBounds(0,0,bg.displayWidth, bg.displayHeight);
+		this.cameras.main.startFollow(this.player);
+
 		// Add moving platforms
 		this.movingPlatforms = [];
 		this.movingPlatforms.push(new MovingPlatform(this, 100, 300, 'box', 300, 300));
@@ -80,7 +86,7 @@ export default class HelloWorldScene extends Phaser.Scene {
 		this.superShotKey = this.input.keyboard.addKey('X');
 
 		// Set keys actions
-		this.superShotKey.on('down', () => { this.player.executeSuperShot() }, null);
+		// this.superShotKey.on('down', () => { this.player.executeSuperShot() }, null);
 
 		// Set collisions
 		this.physics.add.collider(this.movingPlatforms, this.player, this.collidePlayerPlatform, null, this);
@@ -88,7 +94,8 @@ export default class HelloWorldScene extends Phaser.Scene {
 		this.physics.add.overlap(this.player, this.coin, () => { this.coin.executePowerUpAction(null, this.hud) }, null, this);
 		this.physics.add.overlap(this.player, this.star, () => { this.star.executePowerUpAction(this.player) }, null, this);
 		this.physics.add.overlap(this.player, this.lightning, () => { this.lightning.executePowerUpAction(this.player, this.hud) }, null, this);
-		this.physics.add.overlap(this.mummy, this.superShotArray, () => { this.mummy.takeDamage(this.superShotArray[0].damage) }, null, this);
+		this.physics.add.overlap(this.mummy, this.superShotArray, () => { this.mummy.takeDamage(this.superShotArray[0].damage)}, null, this);
+		this.physics.add.overlap(this.mummy, this.player.bulletGroup, () => { this.mummy.takeDamage(this.player.bulletGroup.damage)}, null, this);
 
 		this.physics.add.overlap(this.player, this.mummy, () => { this.player.takeDamage(this.mummy.damage) }, null, this);
 	}
