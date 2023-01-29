@@ -10,6 +10,7 @@ export default class SecondLevelScene extends Phaser.Scene
     }
 
     create(){
+        //TILEMAP
         const Yoffset = -2524;
         var map = this.make.tilemap({key: "map2"});
         var tiles = map.addTilesetImage("Tileset", "tileset");
@@ -21,6 +22,8 @@ export default class SecondLevelScene extends Phaser.Scene
         groundLayer.setCollisionByExclusion([], true);
 
         this.input.on("pointerdown", () => this.scene.start("Level3"));
+
+        //PLAYER AND FLAG
         this.flag = this.add.image(10784, 3022 + Yoffset, "flag");
         this.physics.add.existing(this.flag, true);
         this.player = null; //PLACEHOLDER PARA EL JUGADOR

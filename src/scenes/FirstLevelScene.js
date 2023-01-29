@@ -12,6 +12,7 @@ export default class FirstLevelScene extends Phaser.Scene
     }
 
     create(){
+        //TILEMAP
         const Yoffset = -956;
         var map = this.make.tilemap({key: "map1"});
         var tiles = map.addTilesetImage("Tileset", "tileset");
@@ -24,6 +25,7 @@ export default class FirstLevelScene extends Phaser.Scene
         
         this.input.on("pointerdown", () => this.scene.start("Level2")); //DEBUG PARA CAMBIAR DE ESCENA HASTA QUE SE AÑADA EL JUGADOR
         
+        //PLAYER AND FLAG
         this.flag = this.add.image(9024, 1103 + Yoffset, "flag");
         this.physics.add.existing(this.flag, true);
         this.player = null; //PLACEHOLDER PARA EL JUGADOR
