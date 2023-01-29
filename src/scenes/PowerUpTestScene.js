@@ -82,7 +82,7 @@ export default class HelloWorldScene extends Phaser.Scene {
 		this.superShotKey = this.input.keyboard.addKey('X');
 
 		// Set keys actions
-		this.superShotKey.on('down', () => { this.player.executeSuperShot() }, null);
+		// this.superShotKey.on('down', () => { this.player.executeSuperShot() }, null);
 
 		// Set collisions
 		this.physics.add.collider(this.movingPlatforms, this.player, this.collidePlayerPlatform, null, this);
