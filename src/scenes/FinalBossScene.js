@@ -8,8 +8,13 @@ export default class FinalBossScene extends Phaser.Scene {
 	preload() {
 		this.load.image('tile', 'res/TileseBossStage.png');
 		this.load.tilemapTiledJSON('map','res/bossfinal2.json');
-		this.load.spritesheet('player', 'res/player/idle/idle-1.png', { frameWidth: 71, frameHeight: 67 });
+		this.load.spritesheet('player', 'res/player/idle/idle_sprite.png', { frameWidth: 71, frameHeight: 67 });
 		this.load.spritesheet('demon', '../../res/enemies/hell-beast-id.png', { frameWidth: 55, frameHeight: 67 });
+		this.load.spritesheet('player-walk-right', 'res/player/walk/player_walk_right.png', { frameWidth: 71, frameHeight: 67 });
+		this.load.spritesheet('player-walk-left', 'res/player/walk/player_walk_left.png', { frameWidth: 71, frameHeight: 67 });
+		this.load.spritesheet('player-shoot-right', 'res/player/shoot/shoot-right.png', { frameWidth: 71, frameHeight: 67 });
+		this.load.spritesheet('player-hurt', 'res/player/hurt/hurt.png', { frameWidth: 71, frameHeight: 67 });
+		this.load.spritesheet('player-jump', 'res/player/jump/jump_sprite.png', { frameWidth: 71, frameHeight: 67 });
 		//this.load.spritesheet('mummy', '../../res/enemies/mummy37x45.png', { frameWidth: 37, frameHeight: 45 });
 	}
 	create() {
@@ -29,10 +34,9 @@ export default class FinalBossScene extends Phaser.Scene {
 		layerSuelo.setCollisionByExclusion([-1] , true);
 
 		// Add player and enemies
-
 		this.player = new Player(this, 200, 100, 'player');
-
 		this.demon = new BossDemon(this, 850, 300, 0, 'demon');
+
 		//this.mummy = new Mummy(this, 400, 300, 0, 'mummy');
 
 		// Set collisions damage

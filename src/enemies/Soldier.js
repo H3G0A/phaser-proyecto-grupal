@@ -14,7 +14,7 @@ export default class Soldier extends Enemy {
 				repeat: -1
 			}
 		);
-		
+
 
 		this.scene.anims.create(
 			{
@@ -39,9 +39,9 @@ export default class Soldier extends Enemy {
 		if(!this.shooting){
 			this.play('shoot');
 			setTimeout(() => {
-				this.bulletGroup.generateBullet(this.posX + this.bulletOffsetX, this.posY + this.bulletOffsetY);
+				this.bulletGroup.generateBullet(this.posX + this.bulletOffsetX, this.posY + this.bulletOffsetY, -1);
 			}, 600);
-			
+
 			this.shooting = true;
 			setTimeout(() => { this.shooting = false }, 3000);
 		}
