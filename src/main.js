@@ -4,7 +4,9 @@ import FirstLevelScene from './scenes/FirstLevelScene'
 import SecondLevelScene from './scenes/SecondLevelScene'
 import ThirdLevelScene from './scenes/ThirdLevelScene'
 import EnemyTestScene from './scenes/EnemyTestScene'
+import PowerUpTestScene from './scenes/PowerUpTestScene'
 import FinalBossScene from './scenes/FinalBossScene'
+import TestPlayerScene from './scenes/TestPlayerScene'
 
 const config = {
 	type: Phaser.AUTO,

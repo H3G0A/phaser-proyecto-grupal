@@ -8,18 +8,19 @@ export default class Bullets extends Phaser.Physics.Arcade.Group {
 		this.scene = scene;
 		this.scene.add.existing(this);
 		this.maxSize = 15;
+		this.damage = 1;
 	}
 
 	autoDestroy(bullet) {
-		setTimeout(() => { 
+		setTimeout(() => {
 			bullet.destroy();
 		}, 2000);
 	}
-	
-	generateBullet(x, y) {
+
+	generateBullet(x, y, direction) {
 		let item = this.create(x, y, this.spriteName, 0, true, true);
 		item.body.setAllowGravity(false);
-		item.setVelocityX(-200);
+		item.setVelocityX(direction * 200);
 
 		// Destroy if reaches end of screen
 		item.setCollideWorldBounds(true);
