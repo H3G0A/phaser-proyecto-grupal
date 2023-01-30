@@ -6,7 +6,6 @@ export default class Trampoline extends Phaser.Physics.Arcade.Sprite {
 		this.scene = scene;
 		this.scene.add.existing(this);
 		this.scene.physics.add.existing(this);
-		this.setCollideWorldBounds(true);
 		this.body.setAllowGravity(false);
 		this.scene.physics.add.existing(this).setImmovable(true);
 	}

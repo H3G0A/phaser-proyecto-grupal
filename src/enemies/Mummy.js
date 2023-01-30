@@ -30,11 +30,11 @@ export default class Mummy extends Enemy {
 		}
 		
 		if(!this.finishedRoute){
-			this.setVelocityX(-20);
+			this.setVelocityX(-60);
 			this.flipX = true;
 		}
 		else{
-			this.setVelocityX(20);
+			this.setVelocityX(60);
 			this.flipX = false;
 		}
 	}

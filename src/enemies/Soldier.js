@@ -36,7 +36,7 @@ export default class Soldier extends Enemy {
 	}
 
 	shoot(){
-		if(!this.shooting){
+		if(!this.shooting && this.body.enable){
 			this.play('shoot');
 			setTimeout(() => {
 				this.bulletGroup.generateBullet(this.posX + this.bulletOffsetX, this.posY + this.bulletOffsetY, -1);
