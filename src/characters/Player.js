@@ -16,7 +16,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 		this.superShotKey = this.scene.input.keyboard.addKey('X');
 		this.shooting = false;
 		this.inmunity = false;
-		this.direction = 1;
 
 		// Fix collider
 		this.body.setSize(25, 55);
@@ -103,17 +102,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 			}
 		);
 
-		this.scene.anims.create(
-			{
-				key: 'idle-left',
-				frames: this.scene.anims.generateFrameNumbers('player', { start: 0, end: 3 }),
-				frameRate: 10,
-				repeat : -1
-			}
-		);
-
-
-
 		this.health = 3;
 		this.damage = 30;
 		this.takingDamage = false;
@@ -146,12 +134,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
 	bounce(velocity) {
 		this.play('player-jump').on('animationcomplete', () => {
-			if (this.direction == 1){
-				this.play('stay');
-			}
-			else{
-				this.play('idle-left');
-			}
+			this.play('stay');
 		});
 		this.setVelocityY(velocity);
 	}
@@ -162,12 +145,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 			this.disableBody(true, true);
 		}else{
 			this.play('player-hurt').on('animationcomplete', () => {
-				if (this.direction == 1){
-					this.play('stay');
-				}
-				else{
-					this.play('idle-left');
-				}
+				this.play('stay');
 			});
 		}
 	}
@@ -203,13 +181,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 				this.anims.play('run-shoot-right',true).on('animationcomplete', () => {this.play('stay')});
 			}
 			else if (this.cursors.left.isDown && this.spaceKey.isDown){
-				this.anims.play('run-shoot-left',true).on('animationcomplete', () => {this.play('idle-left')});
+				this.anims.play('run-shoot-left',true).on('animationcomplete', () => {this.play('stay')});
 			}
 			else{
 				if(direction > 0){
 					this.anims.play('shoot-right',true).on('animationcomplete', () => {this.play('stay')});
 				}else{
-					this.anims.play('shoot-left',true).on('animationcomplete', () => {this.play('idle-left')});
+					this.anims.play('shoot-left',true).on('animationcomplete', () => {this.play('stay')});
 				}
 			}
 			
@@ -227,7 +205,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 			if(direction > 0){
 				this.anims.play('shoot-right',true).on('animationcomplete', () => {this.play('stay')});
 			}else{
-				this.anims.play('shoot-left',true).on('animationcomplete', () => {this.play('idle-left')});
+				this.anims.play('shoot-left',true).on('animationcomplete', () => {this.play('stay')});
 			}
 			this.superShot = false;
 			this.scene.getHUD().removeLightning();
@@ -261,7 +239,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 		if (this.cursors.left.isDown && this.cursors.right.isUp && !this.shooting) {
 			this.setVelocityX(-200);
 			if (!(this.anims.isPlaying && this.anims.currentAnim.key === 'player-jump')) {
-				this.anims.play('player-walk-left',true).on('animationcomplete', () => {this.anims.play('idle-left',true)});
+				this.anims.play('player-walk-left',true).on('animationcomplete', () => {this.anims.play('stay',true)});
 			}
 		}
 		else if (this.cursors.left.isUp && !this.cursors.right.isDown && !this.shooting){
@@ -288,7 +266,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 		else if (this.cursors.right.isUp && !this.cursors.left.isDown && !this.shooting){
 			if (this.anims.isPlaying && this.anims.currentAnim.key === 'player-walk-right') {
 				this.setVelocityX(0);
-				this.anims.play('idle-left',true);
+				this.anims.play('stay',true);
 			}
 		}
 		if (this.cursors.right.isDown && this.shooting){
@@ -297,7 +275,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 		else if (this.cursors.right.isUp && !this.cursors.left.isDown && this.shooting){
 			if (this.anims.isPlaying && this.anims.currentAnim.key === 'run-shoot-right') {
 				this.setVelocityX(0);
-				this.anims.play('idle-left',true);
+				this.anims.play('stay',true);
 			}
 		}
 		if (this.spaceKey.isDown){
