@@ -56,7 +56,6 @@ export default class FirstLevelScene extends Phaser.Scene
     }
 
     create(){
-        this.input.on("pointerdown", () => this.scene.start("Level2"));
         //TILEMAP
         this.Yoffset = -956;
         this.deathLimit = 1660 + this.Yoffset; //When the player reach this height, kill him

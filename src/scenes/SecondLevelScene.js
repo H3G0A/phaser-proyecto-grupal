@@ -33,8 +33,6 @@ export default class SecondLevelScene extends Phaser.Scene
 
         groundLayer.setCollisionByExclusion([-1], true);
 
-        this.input.on("pointerdown", () => this.scene.start("Level3"));
-
         //COINS
         var coinsLayer = map.objects[0].objects;
         this.coins = [];

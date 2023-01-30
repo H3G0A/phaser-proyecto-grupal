@@ -21,7 +21,6 @@ export default class FinalBossScene extends Phaser.Scene {
 		this.load.spritesheet('player-jump', 'res/player/jump/jump_sprite.png', { frameWidth: 71, frameHeight: 67 });
 		this.load.image('bullet', '../../res/enemies/bullet.png');
 		this.load.image('supershot', '../../res/super_shot.png');
-		//this.load.spritesheet('mummy', '../../res/enemies/mummy37x45.png', { frameWidth: 37, frameHeight: 45 });
 	}
 	create() {
 		//Add tile map to the key
@@ -47,8 +46,6 @@ export default class FinalBossScene extends Phaser.Scene {
 		this.cameras.main.setBounds(0,0,layerFondo.displayWidth, layerFondo.displayHeight);
 		this.cameras.main.startFollow(this.player);
 
-		//this.mummy = new Mummy(this, 400, 300, 0, 'mummy');
-
 		this.superShotArray = [];
 		// Set collisions damage
 		this.physics.add.overlap(this.player, this.demon, () => { this.player.takeDamage(this.demon.damage) }, null, this);
@@ -57,16 +54,13 @@ export default class FinalBossScene extends Phaser.Scene {
 			this.demon.takeDamage(this.player.bulletGroup.damage);
 			bullet.destroy();
 		}, null, this);
-		//this.physics.add.overlap(this.player, this.mummy, () => { this.player.takeDamage(this.mummy.damage) }, null, this);
 
 		//Set collisions to the entities and the player
 		this.physics.add.collider(this.player, layerSuelo);
 		this.physics.add.collider(this.demon, layerSuelo);
-		//this.physics.add.collider(this.mummy, layerSuelo);
 
 		//Set player collision with entities
 		this.physics.add.collider(this.player, this.demon);
-		//this.physics.add.collider(this.player, this.mummy);
 
 		//Scale Final Boss
 		this.demon.scale = 3.5;
@@ -80,6 +74,5 @@ export default class FinalBossScene extends Phaser.Scene {
 		const cam = this.cameras.main;
 		this.player.update();
 		this.demon.update();
-		//this.mummy.update();
 	}
 }
