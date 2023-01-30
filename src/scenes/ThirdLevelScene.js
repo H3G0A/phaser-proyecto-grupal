@@ -131,7 +131,8 @@ export default class ThirdLevelScene extends Phaser.Scene
                 bullet.destroy();
             })
         })
-        this.physics.add.collider(groundLayer, this.player.bulletGroup, (layer, bullet) => {bullet.destroy()} )//destroy bullets on terrain collision
+        //destroy bullets on terrain collision
+        this.physics.add.collider( groundLayer, this.player.bulletGroup, (bullet, layer) => {bullet.destroy()} );
 
             //Power ups
         this.coins.concat(this.hearts).concat(this.lightnings).concat(this.stars).forEach(powerUp => {

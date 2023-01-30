@@ -2,6 +2,7 @@ import Phaser from "phaser"
 import BossDemon from "../enemies/BossDemon";
 import Mummy from '../enemies/Mummy'
 import Player from '../characters/Player'
+import HUD from "../HUD/HUD";
 
 export default class FinalBossScene extends Phaser.Scene {
 	constructor(){
@@ -19,6 +20,8 @@ export default class FinalBossScene extends Phaser.Scene {
 		this.load.spritesheet('player-shoot-left', 'res/player/shoot/shoot_left.png', { frameWidth: 71, frameHeight: 67 });
 		this.load.spritesheet('player-hurt', 'res/player/hurt/hurt.png', { frameWidth: 71, frameHeight: 67 });
 		this.load.spritesheet('player-jump', 'res/player/jump/jump_sprite.png', { frameWidth: 71, frameHeight: 67 });
+		this.load.spritesheet('run-shoot-right', 'res/player/run-shoot/run-shoot-right.png', { frameWidth: 71, frameHeight: 67 });
+        this.load.spritesheet('run-shoot-left', 'res/player/run-shoot/run-shoot-left.png', { frameWidth: 71, frameHeight: 67 });
 		this.load.image('bullet', '../../res/enemies/bullet.png');
 		this.load.image('supershot', '../../res/super_shot.png');
 	}
@@ -40,6 +43,7 @@ export default class FinalBossScene extends Phaser.Scene {
 
 		// Add player and enemies
 		this.player = new Player(this, 200, 400, 'player');
+		this.hud = new HUD(this);
 		this.demon = new BossDemon(this, 850, 300, 0, 'demon');
 
 		// Config camera and make follow player
@@ -64,6 +68,9 @@ export default class FinalBossScene extends Phaser.Scene {
 
 		//Scale Final Boss
 		this.demon.scale = 3.5;
+
+		//destroy bullets on terrain collision
+        this.physics.add.collider( layerSuelo, this.player.bulletGroup, (bullet, layer) => {bullet.destroy()} );
 	}
 
 	startGame(){
@@ -74,5 +81,9 @@ export default class FinalBossScene extends Phaser.Scene {
 		const cam = this.cameras.main;
 		this.player.update();
 		this.demon.update();
+	}
+	
+	getHUD() {
+		return this.hud;
 	}
 }
