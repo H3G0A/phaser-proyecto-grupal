@@ -949,7 +949,6 @@
         {
          "draworder":"topdown",
          "id":18,
-         "locked":true,
          "name":"boxes",
          "objects":[
                 {
