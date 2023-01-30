@@ -5,7 +5,7 @@ export default class BossDemon extends Enemy {
 
 	constructor(scene, x, y, distance, spriteName) {
 		super(scene, x, y, spriteName);
-		this.health = 20;
+		this.health = 10;
 
 		this.scene.anims.create(
 			{

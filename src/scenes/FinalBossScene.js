@@ -40,7 +40,7 @@ export default class FinalBossScene extends Phaser.Scene {
 		layerSuelo.setCollisionByExclusion([-1] , true);
 
 		// Add player and enemies
-		this.player = new Player(this, 200, 100, 'player');
+		this.player = new Player(this, 200, 400, 'player');
 		this.demon = new BossDemon(this, 850, 300, 0, 'demon');
 
 		// Config camera and make follow player
