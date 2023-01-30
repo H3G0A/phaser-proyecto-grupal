@@ -19,9 +19,12 @@ export default class Bullets extends Phaser.Physics.Arcade.Group {
 
 	generateBullet(x, y, direction) {
 		let item = this.create(x, y, this.spriteName, 0, true, true);
-		item.body.setAllowGravity(false);
-		item.setVelocityX(direction * 600);
 
+		if (item){
+			item.body.setAllowGravity(false);
+			item.setVelocityX(direction * 600);
+			this.autoDestroy(item);
+		}
 		// Destroy if reaches end of screen
 		/* item.setCollideWorldBounds(true);
 		item.body.onWorldBounds = true;
@@ -32,7 +35,7 @@ export default class Bullets extends Phaser.Physics.Arcade.Group {
 		}, item); */
 
 		// Destroy if reaches X seconds lifetime
-		this.autoDestroy(item);
+		
 	}
 
 }

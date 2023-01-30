@@ -175,7 +175,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 			this.superShot = false;
 			this.scene.getHUD().removeLightning();
 			this.scene.superShotSound.play();
-			var superShotBullet = new SuperShot (this.scene, this.x + this.superShotOffsetX, this.y + this.superShotOffsetY, 'supershot', direction);
+			var superShotBullet = new SuperShot (this.scene, this.x + this.superShotOffsetX * direction, this.y + this.superShotOffsetY, 'supershot', direction);
 			superShotBullet.setScale(0.5);
 			this.scene.superShotArray.push(superShotBullet);
 			superShotBullet.generateSuperShot();
