@@ -215,4 +215,8 @@ export default class FirstLevelScene extends Phaser.Scene
 			player.currentPlatform = undefined;
 		}
 	}
+
+    startGame() {
+        this.scene.start('Level1');
+    }
 }
