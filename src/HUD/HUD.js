@@ -10,8 +10,11 @@ export default class HUD  {
         this.lightningIcon = null;
 
         // Initialize coins
-        this.scene.add.image(900, 80, 'coin').setScale(0.08);
-        this.coinsText = this.scene.add.text(930, 75, '0', { fontSize: '30px', fill: '#0'});
+        var coinsImage = this.scene.add.image(900, 80, 'coin').setScale(0.08);
+        this.coinsText = this.scene.add.text(925, 75, '0', { fontSize: '30px', fill: '#0'});
+
+        coinsImage.setScrollFactor(0,0);
+        this.coinsText.setScrollFactor(0,0);
 
         // Initialize lifes
         this.setLifes(3);
@@ -36,12 +39,14 @@ export default class HUD  {
         for (let i = 0; i < lifesNumber; i++){ // Create new hearts
             this.heartArray.push(this.scene.add.image(leftPosition, 25, 'heart').setScale(0.08));
             leftPosition -= 50;
+            this.heartArray[i].setScrollFactor(0,0);
         }
     }
 
     // Add lightning indicator to HUD
     addLightning (){
         this.lightningIcon = this.scene.add.image(30, 30, 'lightning').setScale(0.08);
+        this.lightningIcon.setScrollFactor(0,0);
     }
 
     // Remove lightning indicator from HUD
