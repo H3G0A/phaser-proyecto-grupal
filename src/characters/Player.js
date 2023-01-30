@@ -14,6 +14,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 		this.cursors = this.scene.input.keyboard.createCursorKeys();
 		this.spaceKey = this.scene.input.keyboard.addKey('SPACE');
 		this.superShotKey = this.scene.input.keyboard.addKey('X');
+		this.shooting = false;
+		this.inmunity = false;
 
 		// Fix collider
 		this.body.setSize(25, 55);
@@ -75,14 +77,30 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
 		this.scene.anims.create(
 			{
+				key: 'run-shoot-right',
+				frames: this.scene.anims.generateFrameNumbers('run-shoot-right', { start: 0, end: 7 }),
+				frameRate: 10,
+				repeat : 1
+			}
+		);
+
+		this.scene.anims.create(
+			{
+				key: 'run-shoot-left',
+				frames: this.scene.anims.generateFrameNumbers('run-shoot-left', { start: 0, end: 7 }),
+				frameRate: 10,
+				repeat : 1
+			}
+		);
+
+		this.scene.anims.create(
+			{
 				key: 'stay',
 				frames: this.scene.anims.generateFrameNumbers('player', { start: 0, end: 3 }),
 				frameRate: 10,
 				repeat : -1
 			}
 		);
-
-
 
 		this.health = 3;
 		this.damage = 30;
@@ -104,7 +122,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 	}
 
 	takeDamage(damage) {
-		if (!this.takingDamage) {
+		if (!this.takingDamage && !this.inmunity) {
 			this.health -= damage;
 			this.checkDeath();
 			console.log(this.health);
@@ -115,8 +133,10 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 	}
 
 	bounce(velocity) {
-		this.play('player-jump').on('animationcomplete', () => {this.play('stay')});
-		this.setVelocityY(velocity)
+		this.play('player-jump').on('animationcomplete', () => {
+			this.play('stay');
+		});
+		this.setVelocityY(velocity);
 	}
 
 	checkDeath(){
@@ -124,7 +144,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 			console.log('Player death');
 			this.disableBody(true, true);
 		}else{
-			this.play('player-hurt').on('animationcomplete', () => {this.play('stay')});
+			this.play('player-hurt').on('animationcomplete', () => {
+				this.play('stay');
+			});
 		}
 	}
 
@@ -154,14 +176,27 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 	}
 
 	shoot(direction){
-		if(direction > 0){
-			this.anims.play('shoot-right',true).on('animationcomplete', () => {this.play('stay')});
-		}else{
-			this.anims.play('shoot-left',true).on('animationcomplete', () => {this.play('stay')});
+		if (!this.shooting){
+			if (this.cursors.right.isDown && this.spaceKey.isDown){
+				this.anims.play('run-shoot-right',true).on('animationcomplete', () => {this.play('stay')});
+			}
+			else if (this.cursors.left.isDown && this.spaceKey.isDown){
+				this.anims.play('run-shoot-left',true).on('animationcomplete', () => {this.play('stay')});
+			}
+			else{
+				if(direction > 0){
+					this.anims.play('shoot-right',true).on('animationcomplete', () => {this.play('stay')});
+				}else{
+					this.anims.play('shoot-left',true).on('animationcomplete', () => {this.play('stay')});
+				}
+			}
+			
+			this.bulletGroup.generateBullet(this.body.position.x + 50 * direction , this.body.position.y + 15, direction);
+
+			this.shooting = true;
+			setTimeout(() => { this.shooting = false }, 300);
 		}
-		setTimeout(() => {
-			this.bulletGroup.generateBullet(this.body.position.x + 50 , this.body.position.y + 15, direction);
-		}, 300);
+		
 	}
 
 	// Executes 'Super Shot'
@@ -188,40 +223,57 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 		return this.health;
 	}
 
+
 	update() {
 
 		if (this.cursors.up.isDown == true && this.body.onFloor()) {
-			if (!(this.anims.isPlaying && this.anims.currentAnim.key === 'player-jump')) {
-				this.setVelocityY(-400);
-				this.anims.play('player-jump',true).on('animationcomplete', () => {
-					this.anims.play('stay',true);
-					this.setVelocityY(0);
-				});
-			}
+			this.setVelocityY(-400);
+			this.anims.play('player-jump',true).on('animationcomplete', () => {
+				this.anims.play('stay',true);
+				this.setVelocityY(0);
+			});
 		}
 		else if (this.cursors.down.isDown) {
 			this.setVelocityY(200);
 		}
-		if (this.cursors.left.isDown && this.cursors.right.isUp) {
+		if (this.cursors.left.isDown && this.cursors.right.isUp && !this.shooting) {
 			this.setVelocityX(-200);
 			if (!(this.anims.isPlaying && this.anims.currentAnim.key === 'player-jump')) {
 				this.anims.play('player-walk-left',true).on('animationcomplete', () => {this.anims.play('stay',true)});
 			}
 		}
-		else if(this.cursors.left.isUp && !this.cursors.right.isDown){
+		else if (this.cursors.left.isUp && !this.cursors.right.isDown && !this.shooting){
 			if (this.anims.isPlaying && this.anims.currentAnim.key === 'player-walk-left') {
 				this.setVelocityX(0);
 				this.anims.play('stay',true);
 			}
 		}
-		if (this.cursors.right.isDown) {
+		if (this.cursors.left.isDown && this.cursors.right.isUp && this.shooting){
+			this.setVelocityX(-200);
+		}
+		else if (this.cursors.left.isUp && !this.cursors.right.isDown && this.shooting){
+			if (this.anims.isPlaying && this.anims.currentAnim.key === 'run-shoot-left') {
+				this.setVelocityX(0);
+				this.anims.play('stay',true);
+			}
+		}
+		if (this.cursors.right.isDown && !this.shooting) {
 			this.setVelocityX(200);
 			if (!(this.anims.isPlaying && this.anims.currentAnim.key === 'player-jump')) {
 				this.anims.play('player-walk-right',true).on('animationcomplete', () => {this.anims.play('stay',true)});
 			}
 		}
-		else if(this.cursors.right.isUp && !this.cursors.left.isDown){
+		else if (this.cursors.right.isUp && !this.cursors.left.isDown && !this.shooting){
 			if (this.anims.isPlaying && this.anims.currentAnim.key === 'player-walk-right') {
+				this.setVelocityX(0);
+				this.anims.play('stay',true);
+			}
+		}
+		if (this.cursors.right.isDown && this.shooting){
+			this.setVelocityX(200);
+		}
+		else if (this.cursors.right.isUp && !this.cursors.left.isDown && this.shooting){
+			if (this.anims.isPlaying && this.anims.currentAnim.key === 'run-shoot-right') {
 				this.setVelocityX(0);
 				this.anims.play('stay',true);
 			}
@@ -229,13 +281,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 		if (this.spaceKey.isDown){
 				if (this.anims.isPlaying && this.anims.currentAnim.key === 'player-walk-left') {
 					this.shoot(-1);
-				}else if (this.anims.isPlaying && this.anims.currentAnim.key === 'player-walk-right' || this.anims.currentAnim.key === 'stay') {
+				}else {
 					this.shoot(1);
 				}
 		}else if (this.superShotKey.isDown){
 			if (this.anims.isPlaying && this.anims.currentAnim.key === 'player-walk-left') {
 				this.executeSuperShot(-1);
-			}else if (this.anims.isPlaying && this.anims.currentAnim.key === 'player-walk-right' || this.anims.currentAnim.key === 'stay'){
+			}else {
 				this.executeSuperShot(1);
 			}
 		}
@@ -243,9 +295,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 			this.setVelocityX(0);
 		}
 
-
 		if (this.health <= 0) {
-			console.log('GAME OVER');
+			this.scene.restart();
 			this.disableBody(true, true);
 		}
 
