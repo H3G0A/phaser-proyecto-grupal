@@ -236,7 +236,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 			this.setVelocityY(-400);
 			this.anims.play('player-jump',true).on('animationcomplete', () => {
 				this.anims.play('stay',true);
-				this.setVelocityY(0);
+				//this.setVelocityY(0);
 			});
 		}
 		else if (this.cursors.down.isDown) {
