@@ -132,8 +132,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 			setTimeout(() => { this.takingDamage = false }, 1000);
 
 			if (this.health <= 0) {
-				this.scene.create();
 				this.disableBody(true, true);
+				this.scene.startGame();
 			}
 		}
 	}
