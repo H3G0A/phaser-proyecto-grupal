@@ -40,7 +40,6 @@ export default class FirstLevelScene extends Phaser.Scene
         this.load.image('bullet', '../../res/enemies/bullet.png');
 		this.load.image('supershot', '../../res/super_shot.png');
 
-
         this.load.image("coin", "res/power_ups/gold_coin.png");
         this.load.image('heart', '../../res/power_ups/heart.png');
         this.load.image('lightning', '../../res/power_ups/blue_power_icon.png');
@@ -166,7 +165,8 @@ export default class FirstLevelScene extends Phaser.Scene
                 bullet.destroy();
             })
         })
-        this.physics.add.collider(groundLayer, this.player.bulletGroup, (layer, bullet) => {bullet.destroy()} )//destroy bullets on terrain collision
+			//destroy bullets on terrain collision
+		this.physics.add.collider( groundLayer, this.player.bulletGroup, (bullet, layer) => {bullet.destroy()} );
 
             //Power ups
         this.coins.concat(this.hearts).concat(this.lightnings).concat(this.stars).forEach(powerUp => {
@@ -216,4 +216,8 @@ export default class FirstLevelScene extends Phaser.Scene
 			player.currentPlatform = undefined;
 		}
 	}
+
+    startGame() {
+        this.scene.start('Level1');
+    }
 }
