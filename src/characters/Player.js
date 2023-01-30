@@ -2,6 +2,7 @@
 import Phaser from 'phaser'
 import SuperShot from '../power_ups/SuperShot'
 import Bullets from '../enemies/Bullets';
+import FirstLevelScene from '../scenes/FirstLevelScene';
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
 
@@ -129,6 +130,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 			this.takingDamage = true;
 			this.scene.getHUD().setLifes(this.health);
 			setTimeout(() => { this.takingDamage = false }, 1000);
+
+			if (this.health <= 0) {
+				this.scene.create();
+				this.disableBody(true, true);
+			}
 		}
 	}
 
@@ -293,11 +299,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 		}
 		else if (this.cursors.left.isUp && this.cursors.right.isUp && this.cursors.down.isUp && this.cursors.up.isUp){
 			this.setVelocityX(0);
-		}
-
-		if (this.health <= 0) {
-			this.scene.restart();
-			this.disableBody(true, true);
 		}
 
 		if (this.isOnPlatform && this.currentPlatform) { // Executed when the player is on a moving platform

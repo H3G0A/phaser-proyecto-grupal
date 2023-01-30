@@ -40,7 +40,6 @@ export default class FirstLevelScene extends Phaser.Scene
         this.load.image('bullet', '../../res/enemies/bullet.png');
 		this.load.image('supershot', '../../res/super_shot.png');
 
-
         this.load.image("coin", "res/power_ups/gold_coin.png");
         this.load.image('heart', '../../res/power_ups/heart.png');
         this.load.image('lightning', '../../res/power_ups/blue_power_icon.png');
