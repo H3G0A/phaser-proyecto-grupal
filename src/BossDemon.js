@@ -34,4 +34,8 @@ export default class BossDemon extends Phaser.Physics.Arcade.Sprite {
 			this.setVelocityX(200);
 		}
 	}
+
+	startGame() {
+        this.scene.start('boss');
+    }
 }

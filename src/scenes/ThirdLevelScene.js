@@ -181,4 +181,8 @@ export default class ThirdLevelScene extends Phaser.Scene
 			player.currentPlatform = undefined;
 		}
 	}
+
+    startGame() {
+        this.scene.start('Level3');
+    }
 }

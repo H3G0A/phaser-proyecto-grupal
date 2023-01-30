@@ -180,4 +180,8 @@ export default class SecondLevelScene extends Phaser.Scene
 			player.currentPlatform = undefined;
 		}
 	}
+
+    startGame() {
+        this.scene.start('Level2');
+    }
 }
