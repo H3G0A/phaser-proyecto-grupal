@@ -11,7 +11,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 		this.scene.add.existing(this);
 		this.scene.physics.world.enable(this);
 		this.scene.physics.add.existing(this);
-		this.setCollideWorldBounds(true);
 		this.cursors = this.scene.input.keyboard.createCursorKeys();
 		this.spaceKey = this.scene.input.keyboard.addKey('SPACE');
 		this.superShotKey = this.scene.input.keyboard.addKey('X');
@@ -161,7 +160,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 			this.anims.play('shoot-left',true).on('animationcomplete', () => {this.play('stay')});
 		}
 		setTimeout(() => {
-			this.bulletGroup.generateBullet(this.body.position.x + 50 , this.body.position.y + 30, direction);
+			this.bulletGroup.generateBullet(this.body.position.x + 50 , this.body.position.y + 15, direction);
 		}, 300);
 	}
 

@@ -5,16 +5,17 @@ export default class BossDemon extends Enemy {
 
 	constructor(scene, x, y, distance, spriteName) {
 		super(scene, x, y, spriteName);
+		this.health = 20;
 
 		this.scene.anims.create(
 			{
-				key: 'walk',
+				key: 'demonWalk',
 				frames: this.scene.anims.generateFrameNumbers(spriteName, { start: 0, end: 6 }),
 				frameRate: 10,
 				repeat: -1
 			}
 		);
-		this.play('walk');
+		this.play('demonWalk');
 
 		this.finishedRoute = false;
 		this.initialPos = this.x;
