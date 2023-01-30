@@ -21,7 +21,7 @@ export default class MovingPlatform extends Phaser.Physics.Arcade.Sprite  {
             x: destinoX,
             y: destinoY,
             ease: 'Linear',
-            duration: 1800,
+            duration: 4000,
             repeat: -1,
             yoyo: true,
             onUpdate: () => {

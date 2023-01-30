@@ -31,10 +31,10 @@ export default class Koopa extends Enemy {
 		}
 		
 		if(!this.finishedRoute){
-			this.setVelocityY(20);
+			this.setVelocityY(60);
 		}
 		else{
-			this.setVelocityY(-20);
+			this.setVelocityY(-60);
 		}
 	}
 
