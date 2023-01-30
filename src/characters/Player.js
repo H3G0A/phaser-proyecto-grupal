@@ -160,7 +160,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 			this.anims.play('shoot-left',true).on('animationcomplete', () => {this.play('stay')});
 		}
 		setTimeout(() => {
-			this.bulletGroup.generateBullet(this.body.position.x + 50 , this.body.position.y + 30, direction);
+			this.bulletGroup.generateBullet(this.body.position.x + 50 , this.body.position.y + 15, direction);
 		}, 300);
 	}
 
