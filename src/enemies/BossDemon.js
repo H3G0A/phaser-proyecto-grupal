@@ -41,6 +41,14 @@ export default class BossDemon extends Enemy {
 		}
 	}
 
+	checkDeath(){
+		if (this.health <= 0) {
+			console.log('enemy death');
+			this.disableBody(true, true);
+			this.scene.startGame();
+		}
+	}
+
 	update() {
 		this.patrolling(this.distance);
 	}

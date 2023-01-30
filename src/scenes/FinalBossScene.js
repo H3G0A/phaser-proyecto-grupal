@@ -71,6 +71,11 @@ export default class FinalBossScene extends Phaser.Scene {
 		//Scale Final Boss
 		this.demon.scale = 3.5;
 	}
+
+	startGame(){
+		this.scene.start("endScreen");
+	}
+
 	update() {
 		const cam = this.cameras.main;
 		this.player.update();
