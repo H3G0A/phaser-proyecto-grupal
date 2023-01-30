@@ -201,11 +201,6 @@ export default class FirstLevelScene extends Phaser.Scene
         this.scene.start("Level2");
     }
 
-    execute(coin){
-        console.log("hola")
-        coin.executePowerUpAction(null, this.hud);
-    }
-
     getHUD() {
 		return this.hud;
 	}
