@@ -15,6 +15,10 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 		this.spaceKey = this.scene.input.keyboard.addKey('SPACE');
 		this.superShotKey = this.scene.input.keyboard.addKey('X');
 
+		// Fix collider
+		this.body.setSize(25, 55);
+		this.body.offset.y = 13;
+
 		this.scene.anims.create(
 			{
 				key: 'player-walk-right',
@@ -186,7 +190,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
 	update() {
 
-		if (this.cursors.up.isDown == true) {
+		if (this.cursors.up.isDown == true && this.body.onFloor()) {
 			if (!(this.anims.isPlaying && this.anims.currentAnim.key === 'player-jump')) {
 				this.setVelocityY(-400);
 				this.anims.play('player-jump',true).on('animationcomplete', () => {
