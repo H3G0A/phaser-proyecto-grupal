@@ -23,6 +23,9 @@ export default class FirstLevelScene extends Phaser.Scene
 		this.load.spritesheet('player-shoot-left', 'res/player/shoot/shoot_left.png', { frameWidth: 71, frameHeight: 67 });
 		this.load.spritesheet('player-hurt', 'res/player/hurt/hurt.png', { frameWidth: 71, frameHeight: 67 });
 		this.load.spritesheet('player-jump', 'res/player/jump/jump_sprite.png', { frameWidth: 71, frameHeight: 67 });
+        this.load.spritesheet('run-shoot-right', 'res/player/run-shoot/run-shoot-right.png', { frameWidth: 71, frameHeight: 67 });
+        this.load.spritesheet('run-shoot-left', 'res/player/run-shoot/run-shoot-left.png', { frameWidth: 71, frameHeight: 67 });
+        this.load.spritesheet('idle-left', 'res/player/idle/idle-left.png', { frameWidth: 71, frameHeight: 67 });
 
         this.load.spritesheet('mummy', '../../res/enemies/mummy37x45.png', { frameWidth: 37, frameHeight: 45 });
 		this.load.spritesheet('player', '../../res/player/idle/idle_sprite.png', { frameWidth: 71, frameHeight: 67 });
