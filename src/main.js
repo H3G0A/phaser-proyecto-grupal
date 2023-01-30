@@ -10,10 +10,10 @@ import TestPlayerScene from './scenes/TestPlayerScene'
 
 const config = {
 	type: Phaser.AUTO,
-	/* width: 960,
-	height: 640, */
-	width: 5000, 
-	height: 1000,
+	width: 960,
+	height: 640,
+	/* width: 5000, 
+	height: 1000, */
 	physics: {
 		default: 'arcade',
 		arcade: {
@@ -21,7 +21,7 @@ const config = {
 			gravity: { y: 500 }
 		}
 	},
-	scene: [FirstLevelScene]
+	scene: [FirstLevelScene, SecondLevelScene]
 }
 
 export default new Phaser.Game(config)

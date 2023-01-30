@@ -8,7 +8,6 @@ export default class PowerUp extends Phaser.Physics.Arcade.Sprite {
 		this.scene.add.existing(this);
 		this.scene.physics.add.existing(this);
 		this.body.setAllowGravity(false);
-		this.setCollideWorldBounds(true);
 	}
 
 }

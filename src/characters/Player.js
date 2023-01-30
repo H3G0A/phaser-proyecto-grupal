@@ -11,7 +11,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 		this.scene.add.existing(this);
 		this.scene.physics.world.enable(this);
 		this.scene.physics.add.existing(this);
-		this.setCollideWorldBounds(true);
 		this.cursors = this.scene.input.keyboard.createCursorKeys();
 		this.spaceKey = this.scene.input.keyboard.addKey('SPACE');
 		this.superShotKey = this.scene.input.keyboard.addKey('X');
